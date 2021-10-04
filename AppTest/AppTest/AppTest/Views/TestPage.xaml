@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTest.Views.TestPage"
+             Title="{Binding Title}"
+             >
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Test" Command="{Binding AddItemCommand}" />
+        <ToolbarItem Text="Test2" Command="{Binding AddItemCommand}" IconImageSource="okman.png" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Ice"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
+                <Image Source="okman.png" VerticalOptions="FillAndExpand" HeightRequest="64" ScaleX="1" />
+            </ContentView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
