@@ -5,10 +5,94 @@
              xmlns:controls="clr-namespace:AppTest;assembly=AppTest"
              Title="{Binding Title}"
              >
-    <controls:IconApp Source="okman.png"
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition />
+                    <RowDefinition Height="100" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                
+                <BoxView Color="Green" />
+                <Label Text="Row 0, Column 0"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+                
+                <BoxView Grid.Column="1"
+                 Color="Green" />
+                <Label Grid.Column="1"
+               Text="Row 0, Column 1"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+                
+                <BoxView Grid.Column="2"
+                 Color="Green" />
+                <Label Grid.Column="2"
+               Text="Row 0, Column 1"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+                
+                <BoxView Grid.Column="3"
+                 Color="Green" />
+                <Label Grid.Column="3"
+               Text="Row 0, Column 1"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+                
+                <BoxView Grid.Column="4"
+                 Color="Green" />
+                <Label Grid.Column="4"
+               Text="Row 0, Column 1"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+                
+                <BoxView Grid.Column="5"
+                 Color="Green" />
+                <Label Grid.Column="5"
+               Text="Row 0, Column 1"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+
+
+                <controls:IconApp Source="okman.png"
+                     Foreground="Blue"
+                     WidthRequest="4000"
+                     HeightRequest="200" 
+                                  Grid.Column="4"
+                                  />
+                <controls:IconApp Source="okman.png"
+                     Foreground="Blue"
+                     WidthRequest="4000"
+                     HeightRequest="200" 
+                                  Grid.Column="2"
+                                  />
+
+
+            </Grid>
+            <Label Text="Ice"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <ContentView Padding="0,40,0,40" VerticalOptions="Start">
+                <controls:IconApp Source="okman.png"
                      Foreground="Red"
+                     WidthRequest="200"
+                     HeightRequest="200"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Start" />
+            </ContentView>
+            <ContentView Padding="0,10,0,10" VerticalOptions="FillAndExpand">
+                <controls:IconApp Source="okman.png"
+                     Foreground="Green"
                      WidthRequest="300"
                      HeightRequest="300"
                      HorizontalOptions="Center"
-                     VerticalOptions="Center" />
+                     VerticalOptions="End" />
+            </ContentView>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>
