@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:iconView="clr-namespace:AppTest;assembly=AppTest" 
+             xmlns:viewmodels="clr-namespace:AppTest.ViewModels" x:DataType="viewmodels:IconTestViewModel"
              x:Class="AppTest.Views.IconTest"
-             xmlns:controls="clr-namespace:AppTest;assembly=AppTest"
              Title="{Binding Title}"
              >
     <ContentPage.Content>
@@ -17,59 +18,35 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                
-                <BoxView Color="Green" />
-                <Label Text="Row 0, Column 0"
-               HorizontalOptions="Center"
-               VerticalOptions="Center" />
-                
-                <BoxView Grid.Column="1"
-                 Color="Green" />
-                <Label Grid.Column="1"
-               Text="Row 0, Column 1"
-               HorizontalOptions="Center"
-               VerticalOptions="Center" />
-                
-                <BoxView Grid.Column="2"
-                 Color="Green" />
-                <Label Grid.Column="2"
-               Text="Row 0, Column 1"
-               HorizontalOptions="Center"
-               VerticalOptions="Center" />
-                
-                <BoxView Grid.Column="3"
-                 Color="Green" />
-                <Label Grid.Column="3"
-               Text="Row 0, Column 1"
-               HorizontalOptions="Center"
-               VerticalOptions="Center" />
-                
-                <BoxView Grid.Column="4"
-                 Color="Green" />
-                <Label Grid.Column="4"
-               Text="Row 0, Column 1"
-               HorizontalOptions="Center"
-               VerticalOptions="Center" />
-                
-                <BoxView Grid.Column="5"
-                 Color="Green" />
-                <Label Grid.Column="5"
-               Text="Row 0, Column 1"
-               HorizontalOptions="Center"
-               VerticalOptions="Center" />
-
-
-                <controls:IconApp Source="okman.png"
-                     Foreground="Blue"
-                     WidthRequest="4000"
+                <iconView:IconApp Source="okman.png"
+                     Foreground="{Binding FoodState}"
+                                  Grid.Column="0"
+                     WidthRequest="200"
                      HeightRequest="200" 
+                                  />
+                <iconView:IconApp Source="okman.png"
+                     Foreground="{Binding DrinkState}"
+                                  Grid.Column="1"
+                                  />
+                <iconView:IconApp Source="okman.png"
+                     Foreground="Blue"
+                                  Grid.Column="2"
+                                  />
+                <iconView:IconApp Source="okman.png"
+                     Foreground="Blue"
+                                  Grid.Column="3"
+                                  />
+                <iconView:IconApp Source="okman.png"
+                     Foreground="Blue"
                                   Grid.Column="4"
                                   />
-                <controls:IconApp Source="okman.png"
+                <iconView:IconApp Source="okman.png"
                      Foreground="Blue"
-                     WidthRequest="4000"
-                     HeightRequest="200" 
-                                  Grid.Column="2"
+                                  Grid.Column="4"
+                                  />
+                <iconView:IconApp Source="okman.png"
+                     Foreground="Red"
+                                  Grid.Column="5"
                                   />
 
 
@@ -78,7 +55,7 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
             <ContentView Padding="0,40,0,40" VerticalOptions="Start">
-                <controls:IconApp Source="okman.png"
+                <iconView:IconApp Source="okman.png"
                      Foreground="Red"
                      WidthRequest="200"
                      HeightRequest="200"
@@ -86,7 +63,7 @@
                      VerticalOptions="Start" />
             </ContentView>
             <ContentView Padding="0,10,0,10" VerticalOptions="FillAndExpand">
-                <controls:IconApp Source="okman.png"
+                <iconView:IconApp Source="okman.png"
                      Foreground="Green"
                      WidthRequest="300"
                      HeightRequest="300"

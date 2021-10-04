@@ -14,7 +14,7 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
             <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                <Image Source="okman.png" VerticalOptions="FillAndExpand" HeightRequest="64" ScaleX="1" />
+                <Image Source="{Binding GetImage}" VerticalOptions="FillAndExpand" HeightRequest="64" ScaleX="1" />
             </ContentView>
         </StackLayout>
     </ContentPage.Content>

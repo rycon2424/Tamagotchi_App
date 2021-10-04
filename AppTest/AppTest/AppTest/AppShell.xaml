@@ -31,7 +31,7 @@
 
     <TabBar>
         <ShellContent Title="Food" Icon="icon_about.png" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
-        <ShellContent Title="Play" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:ItemsPage}" />
+        <ShellContent Title="Play" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:AboutPage}" />
         <ShellContent Title="Attention" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:TestPage}" />
         <ShellContent Title="Sleep" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:IconTest}" />
     </TabBar>
