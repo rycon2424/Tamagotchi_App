@@ -31,7 +31,10 @@ namespace AppTest.ViewModels
             Action onChanged = null)
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
+            {
+                Console.WriteLine("backing store '" + backingStore + "' is the same as value '" + value + "'");
                 return false;
+            }
 
             backingStore = value;
             onChanged?.Invoke();
@@ -44,7 +47,10 @@ namespace AppTest.ViewModels
         {
             var changed = PropertyChanged;
             if (changed == null)
+            {
+                Console.WriteLine("Property is null");
                 return;
+            }
 
             changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

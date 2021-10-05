@@ -4,15 +4,13 @@ using System.ComponentModel;
 using System.Text;
 using Xamarin.Forms;
 
-namespace AppTest
+namespace AppTest.ViewModels
 {
-    class Stat : INotifyPropertyChanged
+    class Stat : BaseViewModel
     {
         string statName;
         float statValue;
         Color color;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public Stat(string _name, float _statValue)
         {
@@ -28,8 +26,7 @@ namespace AppTest
                 double needCalculation = 1 - fullfilledCalculation;
                 Color tempColor = new Color(needCalculation, fullfilledCalculation, 0);
                 color = tempColor;
-                Console.WriteLine("Updated color of " + statName + " to " + color);
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("UpdateColor"));
+                //Console.WriteLine("Updated color of " + statName + " to " + color);
             }
         }
 
@@ -39,8 +36,8 @@ namespace AppTest
         {
             set
             {
-                statValue = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("StatValue"));
+                //statValue = value;
+                SetProperty(ref statValue, value);
                 UpdateColor = value;
             }
             get
