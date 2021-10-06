@@ -14,39 +14,82 @@ namespace AppTest.ViewModels
         Stat food;
         Stat drink;
         List<Stat> allStats = new List<Stat>();
+
         public IconTestViewModel()
         {
             Title = "Icon";
-            allStats.Add(food = new Stat("Food", 1f));
-            allStats.Add(drink = new Stat("Drink", 1f));
-            ReduceStats();
+            allStats.Add(food = new Stat("Food", 1f, Stat.TypeStat.hunger));
+            allStats.Add(drink = new Stat("Drink", 1f, Stat.TypeStat.thirst));
+            TestUpdate();
         }
 
-        async void ReduceStats()
+        void UpdateStat(Stat stat, float gainingValue)
         {
-            do
+            stat.StatValue += gainingValue;
+            stat.UpdateColor();
+            switch (stat.StatType)
             {
-                foreach (var s in allStats)
-                {
-                    if (s.StatValue > 0)
-                    {
-                        s.StatValue -= 0.1f;
-                        await Task.Delay(TimeSpan.FromSeconds(1));
-                    }
-                }
+                case Stat.TypeStat.hunger:
+                    FoodState = new Color(1,1,1);
+                    break;
+                case Stat.TypeStat.thirst:
+                    break;
+                case Stat.TypeStat.bored:
+                    break;
+                case Stat.TypeStat.lonely:
+                    break;
+                case Stat.TypeStat.excited:
+                    break;
+                case Stat.TypeStat.sleep:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        async void TestUpdate()
+        {
+            while (true)
+            {
+                UpdateStat(food, -0.01f);
                 await Task.Delay(TimeSpan.FromSeconds(1));
-            } while (true);
+            }
+        }
+
+        private string lol;
+
+        public string Lol
+        {
+            set
+            {
+                SetProperty(ref lol, value);
+            }
+            get
+            {
+                return lol;
+            }
         }
 
         public Color FoodState
         {
+            set
+            {
+                Color _ = food.StatColor;
+                SetProperty(ref _, value);
+            }
             get
             {
+                food.StatValue -= 0.1f;
                 return food.StatColor;
             }
         }
         public Color DrinkState
         {
+            set
+            {
+                Color _ = drink.StatColor;
+                SetProperty(ref _, value);
+            }
             get
             {
                 return drink.StatColor;

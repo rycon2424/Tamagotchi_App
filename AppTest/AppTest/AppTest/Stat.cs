@@ -6,28 +6,28 @@ using Xamarin.Forms;
 
 namespace AppTest.ViewModels
 {
-    class Stat : BaseViewModel
+    class Stat
     {
+        public enum TypeStat {hunger, thirst, bored, lonely, excited, sleep }
+
+        TypeStat statType;
         string statName;
         float statValue;
         Color color;
 
-        public Stat(string _name, float _statValue)
+        public Stat(string _name, float _statValue, TypeStat _statType)
         {
             statName = _name;
             StatValue = _statValue;
+            statType = _statType;
         }
 
-        public float UpdateColor
+        public void UpdateColor()
         {
-            set
-            {
-                double fullfilledCalculation = 1 * value;
-                double needCalculation = 1 - fullfilledCalculation;
-                Color tempColor = new Color(needCalculation, fullfilledCalculation, 0);
-                color = tempColor;
-                //Console.WriteLine("Updated color of " + statName + " to " + color);
-            }
+            double fullfilledCalculation = 1 * StatValue;
+            double needCalculation = 1 - fullfilledCalculation;
+            Color tempColor = new Color(needCalculation, fullfilledCalculation, 0);
+            color = tempColor;
         }
 
         public string StatName { get { return statName; } }
@@ -36,9 +36,7 @@ namespace AppTest.ViewModels
         {
             set
             {
-                //statValue = value;
-                SetProperty(ref statValue, value);
-                UpdateColor = value;
+                statValue = value;
             }
             get
             {
@@ -46,7 +44,19 @@ namespace AppTest.ViewModels
             }
         }
 
-        public Color StatColor => color;
+        public Color StatColor
+        {
+            set
+            {
+                color = value;
+            }
+            get
+            {
+                return color;
+            }
+        }
+
+        public TypeStat StatType => statType;
 
     }
 }

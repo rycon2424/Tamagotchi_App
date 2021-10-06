@@ -48,10 +48,8 @@
                      Foreground="Red"
                                   Grid.Column="5"
                                   />
-
-
             </Grid>
-            <Label Text="Ice"
+            <Label Text="{Binding Lol}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
             <ContentView Padding="0,40,0,40" VerticalOptions="Start">
