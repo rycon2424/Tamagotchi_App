@@ -14,11 +14,6 @@ namespace AppTest
 
         }
 
-        public void TestFunction()
-        {
-            IconApp ice = new IconApp { Source = "", Foreground = Color.Blue, WidthRequest = 200, HeightRequest = 200 };
-        }
-
         public static readonly BindableProperty ForegroundProperty = BindableProperty.Create(nameof(Foreground), typeof(Color), typeof(IconApp), default(Color));
 
         public Color Foreground

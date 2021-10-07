@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace AppTest.ViewModels
 {
-    class Stat
+    public class Stat
     {
         public enum TypeStat {hunger, thirst, bored, lonely, excited, sleep }
 
