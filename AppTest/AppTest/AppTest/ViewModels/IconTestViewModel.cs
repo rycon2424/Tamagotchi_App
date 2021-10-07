@@ -29,6 +29,7 @@ namespace AppTest.ViewModels
                 {
                     UpdateStat(food, -0.01f);
                 }
+                Lol += "x";
                 await Task.Delay(TimeSpan.FromSeconds(1));
             }
         }

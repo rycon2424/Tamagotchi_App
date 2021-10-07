@@ -42,18 +42,12 @@ namespace AppTest.ViewModels
             }
         }
 
-        private string lol;
+        //private string lol;
 
         public string Lol
         {
-            set
-            {
-                SetProperty(ref lol, value);
-            }
-            get
-            {
-                return lol;
-            }
+            get;
+            set;
         }
 
         public Color FoodState
