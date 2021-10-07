@@ -9,13 +9,12 @@ namespace AppTest.ViewModels
 {
     public class ShowStatsModel : BaseViewModel
     {
-        public Stat food;
-        public Stat drink;
+        public Stat food = new Stat("Food", 1f, Stat.TypeStat.hunger);
+        public Stat drink = new Stat("Drink", 1f, Stat.TypeStat.thirst);
 
         public ShowStatsModel()
         {
-            food = new Stat("Food", 1f, Stat.TypeStat.hunger);
-            drink = new Stat("Drink", 1f, Stat.TypeStat.thirst);
+
         }
 
         public void UpdateStat(Stat stat, float gainingValue)
