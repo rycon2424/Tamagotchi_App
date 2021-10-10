@@ -19,8 +19,7 @@ namespace AppTest.ViewModels
             //drink = new Stat("Drink", 1f, Stat.TypeStat.thirst);
             TestUpdate();
         }
-
-
+        
         async void TestUpdate()
         {
             while (true)
