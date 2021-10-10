@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace AppTest.ViewModels
 {
-    public class TestPageViewModel : BaseViewModel
+    public class TestPageViewModel : ShowStatsModel
     {
         public TestPageViewModel()
         {

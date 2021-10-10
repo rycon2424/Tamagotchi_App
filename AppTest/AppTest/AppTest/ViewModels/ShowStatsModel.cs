@@ -2,19 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace AppTest.ViewModels
 {
     public class ShowStatsModel : BaseViewModel
     {
-        public Stat food = new Stat("Food", 1f, Stat.TypeStat.hunger);
-        public Stat drink = new Stat("Drink", 1f, Stat.TypeStat.thirst);
+        public static Stat food = new Stat("Food", 1f, Stat.TypeStat.hunger);
+        public static Stat drink = new Stat("Drink", 1f, Stat.TypeStat.thirst);
 
         public ShowStatsModel()
         {
+            TestUpdate();
+        }
 
+        async void TestUpdate()
+        {
+            while (true)
+            {
+                if (food != null)
+                {
+                    UpdateStat(food, -0.01f);
+                }
+                Lol += "x";
+                await Task.Delay(TimeSpan.FromSeconds(1));
+            }
         }
 
         public void UpdateStat(Stat stat, float gainingValue)
