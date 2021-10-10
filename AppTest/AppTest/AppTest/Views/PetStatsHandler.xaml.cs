@@ -19,7 +19,6 @@ namespace AppTest.Views
             {
                 Children =
                 {
-                    //new Label { Text = "Welcome to Xamarin.Forms!" },
                     Icons(),
                     Pet()
                 }
@@ -30,7 +29,8 @@ namespace AppTest.Views
             var image = (new Image
             {
                 Source = "okman.jpg",
-                Scale = 0.5
+                Scale = 0.5,
+                AnchorY = 0.3
             });
             return image;
         }
@@ -41,7 +41,7 @@ namespace AppTest.Views
             {
                 RowDefinitions =
             {
-                new RowDefinition { Height = new GridLength(2, GridUnitType.Star) },
+                new RowDefinition { Height = new GridLength(60, GridUnitType.Absolute) },
                 new RowDefinition(),
                 new RowDefinition { Height = new GridLength(100) }
             },
