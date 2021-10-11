@@ -16,7 +16,6 @@ namespace AppTest.Views
     {
 
         string[] statTypes = new string[] { "Food.png", "Water.png", "Bed.png", "Boredom.png", "Lonely.png", "Excited.png" };
-        public static bool refreshing;
 
         public PetStatsHandler()
         {
@@ -24,22 +23,10 @@ namespace AppTest.Views
             // <-- here function to load all stats, make the refresh static?
 
             RefreshContent();
-            if (refreshing == false)
-            {
-                refreshing = true;
-                Test();
-            }
-            this.ToolbarItems.Add(ShopToolBarIcon());
-        }
 
-        async void Test()
-        {
-            while (true)
-            {
-                await Task.Delay(TimeSpan.FromSeconds(1));
-                Debug.WriteLine("Test");
-                RefreshContent();
-            }
+            ShowStatsModel.OnStateUpdate += RefreshContent;
+
+            this.ToolbarItems.Add(ShopToolBarIcon());
         }
 
         public void RefreshContent()
@@ -100,18 +87,26 @@ namespace AppTest.Views
             }
             };
 
-            for (int i = 0; i < 6; i++)
-            {
-                grid.Children.Add(new IconApp
-                {
-                    Source = statTypes[i],
-                    Foreground = ShowStatsModel.food.StatColor,
-                    WidthRequest = 200,
-                    HeightRequest = 200
-                }, i, 0);
-            }
+            grid.Children.Add(CreateStat(0, ShowStatsModel.food), 0, 0);
+            grid.Children.Add(CreateStat(1, ShowStatsModel.drink), 1, 0);
+            grid.Children.Add(CreateStat(2, ShowStatsModel.sleep), 2, 0);
+            grid.Children.Add(CreateStat(3, ShowStatsModel.boredom), 3, 0);
+            grid.Children.Add(CreateStat(4, ShowStatsModel.lonely), 4, 0);
+            grid.Children.Add(CreateStat(5, ShowStatsModel.excited), 5, 0);
 
             return grid;
+        }
+
+        IconApp CreateStat(int statName, Stat stat)
+        {
+            IconApp temp = new IconApp
+            {
+                Source = statTypes[statName],
+                Foreground = stat.StatColor,
+                WidthRequest = 200,
+                HeightRequest = 200
+            };
+            return temp;
         }
     }
 }

@@ -9,30 +9,41 @@ namespace AppTest.ViewModels
 {
     public class ShowStatsModel : BaseViewModel
     {
+        public delegate void StatUpdate();
+        public static event StatUpdate OnStateUpdate;
+
         public static Stat food = new Stat("Food", 1f, Stat.TypeStat.hunger);
         public static Stat drink = new Stat("Drink", 1f, Stat.TypeStat.thirst);
+        public static Stat sleep = new Stat("Sleep", 1f, Stat.TypeStat.sleep);
+        public static Stat boredom = new Stat("Boredom", 1f, Stat.TypeStat.bored);
+        public static Stat excited = new Stat("Excitedment", 1f, Stat.TypeStat.excited);
+        public static Stat lonely = new Stat("Lonelyness", 1f, Stat.TypeStat.lonely);
 
         public ShowStatsModel()
         {
-            TestUpdate();
+            DecayStat(food, 1.5f);
+            DecayStat(drink, 1f);
+            DecayStat(sleep, 10f);
+            DecayStat(boredom, 5f);
+            DecayStat(excited, 0.5f);
+            DecayStat(lonely, 3f);
         }
 
-        async void TestUpdate()
+        async void DecayStat(Stat decayingStat, float secondsBetweenDecay)
         {
             while (true)
             {
-                if (food != null)
+                if (decayingStat != null)
                 {
-                    UpdateStat(food, -0.01f);
+                    UpdateStat(decayingStat);
                 }
-                Lol += "x";
-                await Task.Delay(TimeSpan.FromSeconds(1));
+                OnStateUpdate();
+                await Task.Delay(TimeSpan.FromSeconds(secondsBetweenDecay));
             }
         }
 
-        public void UpdateStat(Stat stat, float gainingValue)
+        public void UpdateStat(Stat stat)
         {
-            stat.StatValue += gainingValue;
             stat.UpdateColor();
             switch (stat.StatType)
             {
@@ -40,26 +51,23 @@ namespace AppTest.ViewModels
                     FoodState = new Color(1, 1, 1);
                     break;
                 case Stat.TypeStat.thirst:
+                    DrinkState = new Color(1, 1, 1);
                     break;
                 case Stat.TypeStat.bored:
+                    BoredomState = new Color(1, 1, 1);
                     break;
                 case Stat.TypeStat.lonely:
+                    LonelynessState = new Color(1, 1, 1);
                     break;
                 case Stat.TypeStat.excited:
+                    ExcitedmentState = new Color(1, 1, 1);
                     break;
                 case Stat.TypeStat.sleep:
+                    SleepState = new Color(1, 1, 1);
                     break;
                 default:
                     break;
             }
-        }
-
-        //private string lol;
-
-        public string Lol
-        {
-            get;
-            set;
         }
 
         public Color FoodState
@@ -84,8 +92,66 @@ namespace AppTest.ViewModels
             }
             get
             {
+                drink.StatValue -= 0.1f;
                 return drink.StatColor;
             }
         }
+
+        public Color BoredomState
+        {
+            set
+            {
+                Color _ = boredom.StatColor;
+                SetProperty(ref _, value);
+            }
+            get
+            {
+                boredom.StatValue -= 0.1f;
+                return drink.StatColor;
+            }
+        }
+
+        public Color SleepState
+        {
+            set
+            {
+                Color _ = sleep.StatColor;
+                SetProperty(ref _, value);
+            }
+            get
+            {
+                sleep.StatValue -= 0.1f;
+                return drink.StatColor;
+            }
+        }
+
+        public Color LonelynessState
+        {
+            set
+            {
+                Color _ = lonely.StatColor;
+                SetProperty(ref _, value);
+            }
+            get
+            {
+                lonely.StatValue -= 0.1f;
+                return drink.StatColor;
+            }
+        }
+
+        public Color ExcitedmentState
+        {
+            set
+            {
+                Color _ = excited.StatColor;
+                SetProperty(ref _, value);
+            }
+            get
+            {
+                excited.StatValue -= 0.1f;
+                return drink.StatColor;
+            }
+        }
+
     }
 }
