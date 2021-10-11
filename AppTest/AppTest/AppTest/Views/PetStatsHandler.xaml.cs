@@ -16,19 +16,20 @@ namespace AppTest.Views
     {
 
         string[] statTypes = new string[] { "Food.png", "Water.png", "Bed.png", "Boredom.png", "Lonely.png", "Excited.png" };
-
-        public string LolHmm
-        {
-            get;
-            set;
-        }
+        public static bool refreshing;
 
         public PetStatsHandler()
         {
             InitializeComponent();
             // <-- here function to load all stats, make the refresh static?
+
             RefreshContent();
-            Test();
+            if (refreshing == false)
+            {
+                refreshing = true;
+                Test();
+            }
+            this.ToolbarItems.Add(ShopToolBarIcon());
         }
 
         async void Test()
@@ -36,6 +37,7 @@ namespace AppTest.Views
             while (true)
             {
                 await Task.Delay(TimeSpan.FromSeconds(1));
+                Debug.WriteLine("Test");
                 RefreshContent();
             }
         }
@@ -50,6 +52,24 @@ namespace AppTest.Views
                     Pet()
                 }
             };
+        }
+
+        public ToolbarItem ShopToolBarIcon()
+        {
+            ToolbarItem item = new ToolbarItem
+            {
+                Text = "Example Item",
+                IconImageSource = ImageSource.FromFile("Shop.png"),
+                Order = ToolbarItemOrder.Primary,
+                Priority = 0
+            };
+            item.Clicked += OpenShop;
+            return item;
+        }
+
+        async void OpenShop(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AboutPage());
         }
 
         public Image Pet()
