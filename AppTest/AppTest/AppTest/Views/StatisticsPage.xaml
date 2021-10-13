@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodels="clr-namespace:AppTest.ViewModels" x:DataType="viewmodels:StatsViewModel"
+             x:Class="AppTest.Views.StatisticsPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid RowSpacing="20" ColumnSpacing="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Row="1" Grid.Column="0" Source="food.png" Aspect="AspectFit"/>
+
+                <Image Grid.Row="2" Grid.Column="0" Source="water.png" Aspect="AspectFit"/>
+
+                <Image Grid.Row="3" Grid.Column="0" Source="boredom.png" Aspect="AspectFit"/>
+
+                <Image Grid.Row="4" Grid.Column="0" Source="bed.png" Aspect="AspectFit"/>
+
+                <Image Grid.Row="5" Grid.Column="0" Source="Lonely.png" Aspect="AspectFit"/>
+
+                <Image Grid.Row="6" Grid.Column="0" Source="Excited.png" Aspect="AspectFit"/>
+
+                <Label Grid.Row="1" Grid.Column="1" Text="Food" FontSize="27" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                <Label Grid.Row="1" Grid.Column="2" Text="{Binding FoodValue}" FontSize="45" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+
+                <Label Grid.Row="2" Grid.Column="1" Text="Drink" FontSize="27" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                <Label Grid.Row="2" Grid.Column="2" Text="{Binding DrinkValue}" FontSize="45" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+
+                <Label Grid.Row="3" Grid.Column="1" Text="Fun" FontSize="27" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                <Label Grid.Row="3" Grid.Column="2" Text="{Binding FunValue}" FontSize="45" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+
+                <Label Grid.Row="4" Grid.Column="1" Text="Sleep" FontSize="27" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                <Label Grid.Row="4" Grid.Column="2" Text="{Binding BedValue}" FontSize="45" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+
+                <Label Grid.Row="5" Grid.Column="1" Text="Lonely" FontSize="27" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                <Label Grid.Row="5" Grid.Column="2" Text="{Binding LonelyValue}" FontSize="45" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+
+                <Label Grid.Row="6" Grid.Column="1" Text="Excitement" FontSize="27" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                <Label Grid.Row="6" Grid.Column="2" Text="{Binding ExcitementValue}" FontSize="45" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

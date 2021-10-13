@@ -20,7 +20,6 @@ namespace AppTest.Views
         public PetStatsHandler()
         {
             InitializeComponent();
-            // <-- here function to load all stats, make the refresh static?
 
             RefreshContent();
 

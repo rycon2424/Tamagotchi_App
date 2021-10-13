@@ -70,6 +70,16 @@ namespace AppTest.ViewModels
             }
         }
 
+        float RoundState(Stat s)
+        {
+            s.StatValue -= 0.01f;
+            if (s.StatValue < 0)
+            {
+                s.StatValue = 0;
+            }
+            return s.StatValue;
+        }
+
         public Color FoodState
         {
             set
@@ -79,7 +89,7 @@ namespace AppTest.ViewModels
             }
             get
             {
-                food.StatValue -= 0.1f;
+                food.StatValue = RoundState(food);
                 return food.StatColor;
             }
         }
@@ -92,7 +102,7 @@ namespace AppTest.ViewModels
             }
             get
             {
-                drink.StatValue -= 0.1f;
+                drink.StatValue = RoundState(drink);
                 return drink.StatColor;
             }
         }
@@ -106,8 +116,8 @@ namespace AppTest.ViewModels
             }
             get
             {
-                boredom.StatValue -= 0.1f;
-                return drink.StatColor;
+                boredom.StatValue = RoundState(boredom);
+                return boredom.StatColor;
             }
         }
 
@@ -120,8 +130,8 @@ namespace AppTest.ViewModels
             }
             get
             {
-                sleep.StatValue -= 0.1f;
-                return drink.StatColor;
+                sleep.StatValue = RoundState(sleep);
+                return sleep.StatColor;
             }
         }
 
@@ -134,8 +144,8 @@ namespace AppTest.ViewModels
             }
             get
             {
-                lonely.StatValue -= 0.1f;
-                return drink.StatColor;
+                lonely.StatValue = RoundState(lonely);
+                return lonely.StatColor;
             }
         }
 
@@ -148,8 +158,8 @@ namespace AppTest.ViewModels
             }
             get
             {
-                excited.StatValue -= 0.1f;
-                return drink.StatColor;
+                excited.StatValue = RoundState(excited);
+                return excited.StatColor;
             }
         }
 

@@ -35,7 +35,7 @@
         <ShellContent Title="Fun" Icon="Boredom.png" ContentTemplate="{DataTemplate local:FunRoom}" />
         <ShellContent Title="Sleep" Icon="Bed.png" ContentTemplate="{DataTemplate local:Bedroom}" />
         <ShellContent Title="Shop" Icon="Shop.png" ContentTemplate="{DataTemplate local:AboutPage}" />
-        <ShellContent Title="Stats" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:AboutPage}" />
+        <ShellContent Title="Stats" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:StatisticsPage}" />
     </TabBar>
 
 </Shell>
