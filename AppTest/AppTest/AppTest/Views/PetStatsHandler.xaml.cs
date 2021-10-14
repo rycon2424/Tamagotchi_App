@@ -35,9 +35,21 @@ namespace AppTest.Views
                 Children =
                 {
                     Icons(),
+                    ButtonTest(),
                     PetImage()
                 }
             };
+        }
+
+        public Button ButtonTest()
+        {
+            Button button = new Button
+            {
+                Text = "Click to Rotate Text!",
+                VerticalOptions = LayoutOptions.Fill,
+                HorizontalOptions = LayoutOptions.Center
+            };
+            return button;
         }
 
         public ToolbarItem ShopToolBarIcon()
