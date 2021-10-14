@@ -9,6 +9,7 @@
             <Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <Image Source="okman.jpg" />
         </StackLayout>
     </ContentPage.Content>
 </d:PetStatsHandler>

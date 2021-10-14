@@ -19,5 +19,16 @@ namespace AppTest.Views
             BindingContext = new PlayroomViewModel();
             RefreshContent();
         }
+        public override void RefreshContent()
+        {
+            Content = new StackLayout
+            {
+                Children =
+                {
+                    Icons(),
+                    PetImage()
+                }
+            };
+        }
     }
 }

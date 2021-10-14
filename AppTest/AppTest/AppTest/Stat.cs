@@ -37,6 +37,10 @@ namespace AppTest
             set
             {
                 statValue = value;
+                if (statValue > 1)
+                {
+                    statValue = 1;
+                }
             }
             get
             {

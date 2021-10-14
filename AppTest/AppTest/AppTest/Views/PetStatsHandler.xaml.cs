@@ -28,28 +28,9 @@ namespace AppTest.Views
             this.ToolbarItems.Add(ShopToolBarIcon());
         }
 
-        public void RefreshContent()
+        public virtual void RefreshContent()
         {
-            Content = new StackLayout
-            {
-                Children =
-                {
-                    Icons(),
-                    ButtonTest(),
-                    PetImage()
-                }
-            };
-        }
 
-        public Button ButtonTest()
-        {
-            Button button = new Button
-            {
-                Text = "Click to Rotate Text!",
-                VerticalOptions = LayoutOptions.Fill,
-                HorizontalOptions = LayoutOptions.Center
-            };
-            return button;
         }
 
         public ToolbarItem ShopToolBarIcon()
@@ -76,6 +57,7 @@ namespace AppTest.Views
             {
                 Source = "okman.jpg",
                 Scale = 0.5,
+                VerticalOptions = LayoutOptions.Start,
                 AnchorY = 0.3
             });
             return image;
