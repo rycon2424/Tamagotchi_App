@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace AppTest.ViewModels
 {
@@ -12,21 +14,23 @@ namespace AppTest.ViewModels
         public delegate void StatUpdate();
         public static event StatUpdate OnStateUpdate;
 
-        public static Stat food = new Stat("Food", 1f, Stat.TypeStat.hunger);
-        public static Stat drink = new Stat("Drink", 1f, Stat.TypeStat.thirst);
-        public static Stat sleep = new Stat("Sleep", 1f, Stat.TypeStat.sleep);
-        public static Stat boredom = new Stat("Boredom", 1f, Stat.TypeStat.bored);
-        public static Stat excited = new Stat("Excitedment", 1f, Stat.TypeStat.excited);
-        public static Stat lonely = new Stat("Lonelyness", 1f, Stat.TypeStat.lonely);
-
         public ShowStatsModel()
         {
-            DecayStat(food, 1.5f);
-            DecayStat(drink, 1f);
-            DecayStat(sleep, 10f);
-            DecayStat(boredom, 5f);
-            DecayStat(excited, 0.5f);
-            DecayStat(lonely, 3f);
+            if (Pet.Instance.initialized == false)
+            {
+                Pet.Instance.LoadStats();
+                Initialize();
+            }
+        }
+
+        void Initialize()
+        {
+            DecayStat(Pet.Instance.food, 1.5f);
+            DecayStat(Pet.Instance.drink, 1f);
+            DecayStat(Pet.Instance.sleep, 10f);
+            DecayStat(Pet.Instance.boredom, 5f);
+            DecayStat(Pet.Instance.excited, 0.5f);
+            DecayStat(Pet.Instance.lonely, 3f);
         }
 
         async void DecayStat(Stat decayingStat, float secondsBetweenDecay)
@@ -41,6 +45,16 @@ namespace AppTest.ViewModels
                 await Task.Delay(TimeSpan.FromSeconds(secondsBetweenDecay));
             }
         }
+        public void SaveStats(Pet p)
+        {
+            string petText = JsonConvert.SerializeObject(p);
+        }
+
+        //public Pet LoadStat()
+        //{
+        //    Pet p = JsonConvert.DeserializeObject<Pet>();
+        //    return p;
+        //}
 
         public void UpdateStat(Stat stat)
         {
@@ -84,26 +98,26 @@ namespace AppTest.ViewModels
         {
             set
             {
-                Color _ = food.StatColor;
+                Color _ = Pet.Instance.food.StatColor;
                 SetProperty(ref _, value);
             }
             get
             {
-                food.StatValue = RoundState(food);
-                return food.StatColor;
+                Pet.Instance.food.StatValue = RoundState(Pet.Instance.food);
+                return Pet.Instance.food.StatColor;
             }
         }
         public Color DrinkState
         {
             set
             {
-                Color _ = drink.StatColor;
+                Color _ = Pet.Instance.drink.StatColor;
                 SetProperty(ref _, value);
             }
             get
             {
-                drink.StatValue = RoundState(drink);
-                return drink.StatColor;
+                Pet.Instance.drink.StatValue = RoundState(Pet.Instance.drink);
+                return Pet.Instance.drink.StatColor;
             }
         }
 
@@ -111,13 +125,13 @@ namespace AppTest.ViewModels
         {
             set
             {
-                Color _ = boredom.StatColor;
+                Color _ = Pet.Instance.boredom.StatColor;
                 SetProperty(ref _, value);
             }
             get
             {
-                boredom.StatValue = RoundState(boredom);
-                return boredom.StatColor;
+                Pet.Instance.boredom.StatValue = RoundState(Pet.Instance.boredom);
+                return Pet.Instance.boredom.StatColor;
             }
         }
 
@@ -125,13 +139,13 @@ namespace AppTest.ViewModels
         {
             set
             {
-                Color _ = sleep.StatColor;
+                Color _ = Pet.Instance.sleep.StatColor;
                 SetProperty(ref _, value);
             }
             get
             {
-                sleep.StatValue = RoundState(sleep);
-                return sleep.StatColor;
+                Pet.Instance.sleep.StatValue = RoundState(Pet.Instance.sleep);
+                return Pet.Instance.sleep.StatColor;
             }
         }
 
@@ -139,13 +153,13 @@ namespace AppTest.ViewModels
         {
             set
             {
-                Color _ = lonely.StatColor;
+                Color _ = Pet.Instance.lonely.StatColor;
                 SetProperty(ref _, value);
             }
             get
             {
-                lonely.StatValue = RoundState(lonely);
-                return lonely.StatColor;
+                Pet.Instance.lonely.StatValue = RoundState(Pet.Instance.lonely);
+                return Pet.Instance.lonely.StatColor;
             }
         }
 
@@ -153,13 +167,13 @@ namespace AppTest.ViewModels
         {
             set
             {
-                Color _ = excited.StatColor;
+                Color _ = Pet.Instance.excited.StatColor;
                 SetProperty(ref _, value);
             }
             get
             {
-                excited.StatValue = RoundState(excited);
-                return excited.StatColor;
+                Pet.Instance.excited.StatValue = RoundState(Pet.Instance.excited);
+                return Pet.Instance.excited.StatColor;
             }
         }
 

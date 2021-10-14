@@ -35,7 +35,7 @@ namespace AppTest.Views
                 Children =
                 {
                     Icons(),
-                    Pet()
+                    PetImage()
                 }
             };
         }
@@ -58,7 +58,7 @@ namespace AppTest.Views
             await Navigation.PushAsync(new AboutPage());
         }
 
-        public Image Pet()
+        public Image PetImage()
         {
             var image = (new Image
             {
@@ -86,12 +86,12 @@ namespace AppTest.Views
             }
             };
 
-            grid.Children.Add(CreateStat(0, ShowStatsModel.food), 0, 0);
-            grid.Children.Add(CreateStat(1, ShowStatsModel.drink), 1, 0);
-            grid.Children.Add(CreateStat(2, ShowStatsModel.sleep), 2, 0);
-            grid.Children.Add(CreateStat(3, ShowStatsModel.boredom), 3, 0);
-            grid.Children.Add(CreateStat(4, ShowStatsModel.lonely), 4, 0);
-            grid.Children.Add(CreateStat(5, ShowStatsModel.excited), 5, 0);
+            grid.Children.Add(CreateStat(0, Pet.Instance.food), 0, 0);
+            grid.Children.Add(CreateStat(1, Pet.Instance.drink), 1, 0);
+            grid.Children.Add(CreateStat(2, Pet.Instance.sleep), 2, 0);
+            grid.Children.Add(CreateStat(3, Pet.Instance.boredom), 3, 0);
+            grid.Children.Add(CreateStat(4, Pet.Instance.lonely), 4, 0);
+            grid.Children.Add(CreateStat(5, Pet.Instance.excited), 5, 0);
 
             return grid;
         }

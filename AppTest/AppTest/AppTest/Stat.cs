@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Text;
 using Xamarin.Forms;
 
-namespace AppTest.ViewModels
+namespace AppTest
 {
     public class Stat
     {
