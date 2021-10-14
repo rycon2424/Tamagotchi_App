@@ -3,6 +3,7 @@ using AppTest.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Diagnostics;
 
 namespace AppTest
 {
@@ -19,10 +20,13 @@ namespace AppTest
 
         protected override void OnStart()
         {
+
         }
 
         protected override void OnSleep()
         {
+            Debug.WriteLine("Saved!");
+            Pet.Instance.SaveStats();
         }
 
         protected override void OnResume()

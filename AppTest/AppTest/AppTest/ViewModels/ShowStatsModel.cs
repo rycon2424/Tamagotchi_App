@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace AppTest.ViewModels
@@ -19,11 +18,11 @@ namespace AppTest.ViewModels
             if (Pet.Instance.initialized == false)
             {
                 Pet.Instance.LoadStats();
-                Initialize();
+                InitializeDecay();
             }
         }
 
-        void Initialize()
+        void InitializeDecay()
         {
             DecayStat(Pet.Instance.food, 1.5f);
             DecayStat(Pet.Instance.drink, 1f);
@@ -39,22 +38,15 @@ namespace AppTest.ViewModels
             {
                 if (decayingStat != null)
                 {
-                    UpdateStat(decayingStat);
+                    if (decayingStat.StatValue > 0)
+                    {
+                        UpdateStat(decayingStat);
+                    }
                 }
                 OnStateUpdate();
                 await Task.Delay(TimeSpan.FromSeconds(secondsBetweenDecay));
             }
         }
-        public void SaveStats(Pet p)
-        {
-            string petText = JsonConvert.SerializeObject(p);
-        }
-
-        //public Pet LoadStat()
-        //{
-        //    Pet p = JsonConvert.DeserializeObject<Pet>();
-        //    return p;
-        //}
 
         public void UpdateStat(Stat stat)
         {
