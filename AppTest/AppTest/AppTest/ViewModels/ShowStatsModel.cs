@@ -24,12 +24,15 @@ namespace AppTest.ViewModels
 
         void InitializeDecay()
         {
-            DecayStat(Pet.Instance.food, 1.5f);
-            DecayStat(Pet.Instance.drink, 1f);
-            DecayStat(Pet.Instance.sleep, 10f);
-            DecayStat(Pet.Instance.boredom, 5f);
-            DecayStat(Pet.Instance.excited, 0.5f);
-            DecayStat(Pet.Instance.lonely, 3f);
+            DecayStat(Pet.Instance.food, 5f);
+            DecayStat(Pet.Instance.drink, 3f);
+            DecayStat(Pet.Instance.sleep, 20f);
+            DecayStat(Pet.Instance.boredom, 10f);
+            DecayStat(Pet.Instance.lonely, 12f);
+
+            GainSleep();
+
+            UpdateStat(Pet.Instance.excited);
         }
 
         async void DecayStat(Stat decayingStat, float secondsBetweenDecay)
@@ -48,9 +51,21 @@ namespace AppTest.ViewModels
             }
         }
 
+        async void GainSleep()
+        {
+            while (true)
+            {
+                if (Pet.Instance.sleeping)
+                {
+                    Pet.Instance.sleep.StatValue += 0.05f;
+                }
+                await Task.Delay(TimeSpan.FromSeconds(5));
+            }
+        }
+
         public void UpdateStat(Stat stat)
         {
-            stat.UpdateColor();
+            stat.StatValue -= 0.01f;
             switch (stat.StatType)
             {
                 case Stat.TypeStat.hunger:
@@ -74,11 +89,11 @@ namespace AppTest.ViewModels
                 default:
                     break;
             }
+            stat.UpdateColor();
         }
 
         float RoundState(Stat s)
         {
-            s.StatValue -= 0.01f;
             if (s.StatValue < 0)
             {
                 s.StatValue = 0;
@@ -168,6 +183,5 @@ namespace AppTest.ViewModels
                 return Pet.Instance.excited.StatColor;
             }
         }
-
     }
 }

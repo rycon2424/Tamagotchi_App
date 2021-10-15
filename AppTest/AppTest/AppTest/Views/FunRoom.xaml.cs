@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AppTest.Models;
 using AppTest.ViewModels;
 
 using Xamarin.Forms;
@@ -21,14 +22,26 @@ namespace AppTest.Views
         }
         public override void RefreshContent()
         {
-            Content = new StackLayout
+            if (Pet.Instance.sleeping == false)
             {
-                Children =
-                {
-                    Icons(),
-                    PetImage()
-                }
-            };
+                List<GridButton> temp = new List<GridButton>();
+
+                Button petButton = CreateButton("Play", 16);
+                petButton.Clicked += Play;
+
+                temp.Add(new GridButton(petButton, 1, 2));
+                Content = Icons(temp);
+            }
+            else
+            {
+                Content = Icons(null);
+            }
+        }
+
+        public void Play(object sender, EventArgs args)
+        {
+            Pet.Instance.boredom.StatValue += 0.1f;
+            RefreshContent();
         }
     }
 }

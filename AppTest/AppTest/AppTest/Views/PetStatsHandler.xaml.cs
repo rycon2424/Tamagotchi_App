@@ -1,4 +1,5 @@
 ﻿using AppTest.ViewModels;
+using AppTest.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,6 @@ namespace AppTest.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PetStatsHandler : ContentPage
     {
-
         string[] statTypes = new string[] { "Food.png", "Water.png", "Bed.png", "Boredom.png", "Lonely.png", "Excited.png" };
 
         public PetStatsHandler()
@@ -55,21 +55,72 @@ namespace AppTest.Views
         {
             var image = (new Image
             {
-                Source = "okman.jpg",
-                Scale = 0.5,
-                VerticalOptions = LayoutOptions.Start,
-                AnchorY = 0.3
+                Source = PetBehaviour(),
+                Scale = 3,
+                AnchorX = 0.15f,
+                AnchorY = 0.45f
             });
             return image;
         }
 
-        public Grid Icons()
+        string PetBehaviour()
         {
+            bool sleepy = false;
+            bool sleeping = Pet.Instance.sleeping;
+            if (Pet.Instance.sleep.StatValue < 0.2f)
+                sleepy = true;
+
+            if (Pet.Instance.food.StatValue < 0.1f || Pet.Instance.drink.StatValue < 0.1f)
+            {
+                if (sleeping)
+                    return "pet_dragon_hungry_sleeping.png";
+                if (sleepy)
+                    return "pet_dragon_hungry_sleepy.png";
+                return "pet_dragon_hungry.png";
+            }
+            else if (Pet.Instance.lonely.StatValue < 0.1f)
+            {
+                if (sleeping)
+                    return "pet_dragon_bored_sleeping.png";
+                if (sleepy)
+                    return "pet_dragon_lonely_sleepy.png";
+                return "pet_dragon_lonely.png";
+            }
+            else if (Pet.Instance.boredom.StatValue < 0.1f)
+            {
+                if (sleeping)
+                    return "pet_dragon_bored_sleeping.png";
+                if (sleepy) 
+                    return "pet_dragon_bored_sleepy.png";
+                return "pet_dragon_bored.png";
+            }
+            else
+            {
+                if (sleeping)
+                    return "pet_dragon_happy_sleeping.png";
+                if (sleepy)
+                    return "pet_dragon_happy_sleepy.png";
+                return "pet_dragon_happy.png";
+            }
+        }
+        public Grid Icons(List<GridButton> extraButtons)
+        {
+            if (Pet.Instance.sleeping)
+            {
+                BackgroundColor = Color.MidnightBlue;
+            }
+            else
+            {
+                BackgroundColor = Color.SkyBlue;
+            }
+
             Grid grid = new Grid
             {
+                HeightRequest = 400,
+                WidthRequest = 400,
                 RowDefinitions =
             {
-                new RowDefinition { Height = new GridLength(60, GridUnitType.Absolute) },
+                new RowDefinition { Height = new GridLength(80, GridUnitType.Absolute) },
                 new RowDefinition(),
                 new RowDefinition { Height = new GridLength(100) }
             },
@@ -80,12 +131,22 @@ namespace AppTest.Views
             }
             };
 
+            if (extraButtons != null)
+            {
+                foreach (var extraButton in extraButtons)
+                {
+                    grid.Children.Add(extraButton.button, extraButton.x, extraButton.y);
+                }
+            }
+
             grid.Children.Add(CreateStat(0, Pet.Instance.food), 0, 0);
             grid.Children.Add(CreateStat(1, Pet.Instance.drink), 1, 0);
             grid.Children.Add(CreateStat(2, Pet.Instance.sleep), 2, 0);
             grid.Children.Add(CreateStat(3, Pet.Instance.boredom), 3, 0);
             grid.Children.Add(CreateStat(4, Pet.Instance.lonely), 4, 0);
             grid.Children.Add(CreateStat(5, Pet.Instance.excited), 5, 0);
+
+            grid.Children.Add(PetImage(), 2, 1);
 
             return grid;
         }
@@ -100,6 +161,18 @@ namespace AppTest.Views
                 HeightRequest = 200
             };
             return temp;
+        }
+
+        public Button CreateButton(string buttonText, int fontSize)
+        {
+            Button button = new Button
+            {
+                Text = buttonText,
+                FontSize = fontSize,
+                VerticalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Center
+            };
+            return button;
         }
     }
 }

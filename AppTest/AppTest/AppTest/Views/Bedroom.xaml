@@ -2,8 +2,8 @@
 <d:PetStatsHandler xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppTest.Views.Bedroom"
-             xmlns:d= "clr-namespace:AppTest.Views"
-             Title="{Binding Title}">
+             xmlns:d= "clr-namespace:AppTest.Views" xmlns:viewmodels="clr-namespace:AppTest.ViewModels" x:DataType="viewmodels:ShowStatsModel"
+                   Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Welcome to Xamarin.Forms!"

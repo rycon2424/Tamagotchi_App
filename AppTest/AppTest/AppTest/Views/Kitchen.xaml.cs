@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AppTest.ViewModels;
+using AppTest.Models;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -20,47 +21,39 @@ namespace AppTest.Views
             BindingContext = new KitchenViewModel();
             RefreshContent();
         }
-
         public override void RefreshContent()
         {
-            Content = new StackLayout
+            if (Pet.Instance.sleeping == false)
             {
-                Children =
-                {
-                    Icons(),
-                    ButtonTest(),
-                    TestLol()
-                }
-            };
-        }
+                List<GridButton> temp = new List<GridButton>();
 
-        public Label TestLol()
-        {
-            Label label = new Label
-            {
-                Text = "TesterTEst",
-                VerticalOptions = LayoutOptions.End,
-                HorizontalOptions = LayoutOptions.Center,
-            };
-            return label;
-        }
+                Button feedButton = CreateButton("Feed", 14);
+                Button drinkButton = CreateButton("Drink", 14);
 
-        public Button ButtonTest()
-        {
-            Button button = new Button
+                feedButton.Clicked += GainFood;
+                drinkButton.Clicked += GainWater;
+
+                temp.Add(new GridButton(feedButton, 1, 2));
+                temp.Add(new GridButton(drinkButton, 4, 2));
+
+                Content = Icons(temp);
+            }
+            else
             {
-                ImageSource = "okman.jpg",
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Center,
-                Scale = 0.3f,
-                AnchorY = 0f
-            };
-            button.Clicked += OnButtonPressed;
-            return button;
+                Content = Icons(null);
+            }
         }
-        void OnButtonPressed(object sender, EventArgs args)
+        public void GainFood(object sender, EventArgs args)
         {
             Pet.Instance.food.StatValue += 0.1f;
+            RefreshContent();
         }
+
+        public void GainWater(object sender, EventArgs args)
+        {
+            Pet.Instance.drink.StatValue += 0.1f;
+            RefreshContent();
+        }
+
     }
 }

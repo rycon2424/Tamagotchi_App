@@ -12,6 +12,8 @@ namespace AppTest
         private static Pet instance = null;
         private static readonly object padlock = new object();
 
+        public bool sleeping;
+
         public Stat food = new Stat("Food", 1f, Stat.TypeStat.hunger);
         public Stat drink = new Stat("Drink", 1f, Stat.TypeStat.thirst);
         public Stat sleep = new Stat("Sleep", 1f, Stat.TypeStat.sleep);
@@ -54,6 +56,7 @@ namespace AppTest
                 boredom = pet.boredom;
                 excited = pet.excited;
                 lonely = pet.lonely;
+                sleeping = pet.sleeping;
 
                 if (food.StatValue <= 0)
                     food.StatValue = 0.01f;

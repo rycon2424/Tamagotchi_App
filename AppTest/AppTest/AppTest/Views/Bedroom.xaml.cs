@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AppTest.ViewModels;
+using AppTest.Models;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -19,16 +20,21 @@ namespace AppTest.Views
             BindingContext = new BedroomViewModel();
             RefreshContent();
         }
+
         public override void RefreshContent()
         {
-            Content = new StackLayout
-            {
-                Children =
-                {
-                    Icons(),
-                    PetImage()
-                }
-            };
+            List<GridButton> temp = new List<GridButton>();
+
+            Button sleepButton = CreateButton("Lamp", 14);
+            sleepButton.Clicked += SwapDayNightTime;
+
+            temp.Add(new GridButton(sleepButton, 4, 2));
+            Content = Icons(temp);
+        }
+
+        public void SwapDayNightTime(object sender, EventArgs args)
+        {
+            Pet.Instance.sleeping = !Pet.Instance.sleeping;
         }
     }
 }
