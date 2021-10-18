@@ -42,11 +42,11 @@ namespace AppTest.Views
                 Order = ToolbarItemOrder.Primary,
                 Priority = 0
             };
-            item.Clicked += OpenShop;
+            item.Clicked += OpenOptions;
             return item;
         }
 
-        async void OpenShop(object sender, EventArgs e)
+        async void OpenOptions(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new AboutPage());
         }

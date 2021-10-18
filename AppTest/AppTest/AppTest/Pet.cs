@@ -13,6 +13,9 @@ namespace AppTest
         private static Pet instance = null;
         private static readonly object padlock = new object();
 
+        public delegate void LoadPet();
+        public event LoadPet OnLoadPet;
+
         public int ID { get => id; set => id = value; }
 
         public int id;
@@ -83,6 +86,7 @@ namespace AppTest
                 await dataStore.CreateItem(new PetObject());
             }
             initialized = true;
+            OnLoadPet();
         }
 
         public void SaveStats()

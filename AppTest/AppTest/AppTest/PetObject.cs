@@ -19,12 +19,12 @@ namespace AppTest
         public void UpdateStats(Pet p)
         {
             name = p.name;
-            hunger = p.hunger.StatValue * 100;
-            thirst = p.thirst.StatValue * 100;
-            tired = p.tired.StatValue * 100;
-            boredom = p.boredom.StatValue * 100;
-            stimulated = p.stimulated.StatValue * 100;
-            loneliness = p.loneliness.StatValue * 100;
+            hunger = p.hunger.StatValue;
+            thirst = p.thirst.StatValue;
+            tired = p.tired.StatValue;
+            boredom = p.boredom.StatValue;
+            stimulated = p.stimulated.StatValue;
+            loneliness = p.loneliness.StatValue;
         }
     }
 }

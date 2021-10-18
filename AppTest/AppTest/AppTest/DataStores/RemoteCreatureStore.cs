@@ -90,7 +90,6 @@ namespace AppTest
             try
             {
                 var response = await client.PutAsync("https://tamagotchi.hku.nl/api/Creatures/" + petID, new StringContent(pet, Encoding.UTF8, "application/json"));
-                Debug.WriteLine("Test = " + new StringContent(pet, Encoding.UTF8, "application/json"));
                 if (response.IsSuccessStatusCode)
                 {
                     Debug.WriteLine("Succesfully updated pet in database");

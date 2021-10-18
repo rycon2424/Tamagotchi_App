@@ -18,11 +18,11 @@ namespace AppTest.ViewModels
             if (Pet.PetInstance.initialized == false)
             {
                 Pet.PetInstance.LoadStats();
-                InitializeDecay();
+                Pet.PetInstance.OnLoadPet += InitializeDecay;
             }
         }
 
-        void InitializeDecay()
+        public void InitializeDecay()
         {
             DecayStat(Pet.PetInstance.hunger, 5f);
             DecayStat(Pet.PetInstance.thirst, 3f);
@@ -33,23 +33,22 @@ namespace AppTest.ViewModels
             GainSleep();
 
             UpdateStat(Pet.PetInstance.stimulated);
+
+            OnStateUpdate();
         }
 
         async void DecayStat(Stat decayingStat, float secondsBetweenDecay)
         {
             while (true)
             {
-                if (Pet.PetInstance.initialized)
+                if (decayingStat != null)
                 {
-                    if (decayingStat != null)
+                    if (decayingStat.StatValue > 0)
                     {
-                        if (decayingStat.StatValue > 0)
-                        {
-                            UpdateStat(decayingStat);
-                        }
+                        UpdateStat(decayingStat);
                     }
-                    OnStateUpdate();
                 }
+                OnStateUpdate();
                 await Task.Delay(TimeSpan.FromSeconds(secondsBetweenDecay));
             }
         }

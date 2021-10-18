@@ -36,8 +36,8 @@ namespace AppTest.Views
         public void SwapDayNightTime(object sender, EventArgs args)
         {
             //Preferences.Remove("MyPetID");
-            Pet.PetInstance.SaveStats();
-            //Pet.PetInstance.sleeping = !Pet.PetInstance.sleeping;
+            //Pet.PetInstance.SaveStats();
+            Pet.PetInstance.sleeping = !Pet.PetInstance.sleeping;
         }
     }
 }
