@@ -12,7 +12,7 @@ namespace AppTest
 
         TypeStat statType;
         string statName;
-        float statValue;
+        float statValue = 0;
         Color color;
 
         public Stat(string _name, float _statValue, TypeStat _statType)

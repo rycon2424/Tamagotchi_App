@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AppTest
 {
     public interface IDataStore<T>
     {
-        bool CreateItem(T item);
-        T ReadItem();
-        bool UpdateItem(T item);
-        bool DeleteItem(T item);
+        Task<bool> CreateItem(T item);
+        Task<T> ReadItem();
+        Task<bool> UpdateItem(T item);
+        Task<bool> DeleteItem(T item);
     }
 }

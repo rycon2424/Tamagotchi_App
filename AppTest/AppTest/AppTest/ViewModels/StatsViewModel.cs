@@ -20,12 +20,12 @@ namespace AppTest.ViewModels
 
         public void UpdateValues()
         {
-            FoodValue = GetPercentage(Pet.PetInstance.food);
-            DrinkValue = GetPercentage(Pet.PetInstance.drink);
-            BedValue = GetPercentage(Pet.PetInstance.sleep);
-            LonelyValue = GetPercentage(Pet.PetInstance.lonely);
+            FoodValue = GetPercentage(Pet.PetInstance.hunger);
+            DrinkValue = GetPercentage(Pet.PetInstance.thirst);
+            BedValue = GetPercentage(Pet.PetInstance.tired);
+            LonelyValue = GetPercentage(Pet.PetInstance.loneliness);
             FunValue = GetPercentage(Pet.PetInstance.boredom);
-            ExcitementValue = GetPercentage(Pet.PetInstance.excited);
+            ExcitementValue = GetPercentage(Pet.PetInstance.stimulated);
         }
 
         string GetPercentage(Stat s)

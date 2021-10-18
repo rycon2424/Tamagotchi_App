@@ -13,6 +13,7 @@ namespace AppTest
         {
             InitializeComponent();
 
+            //DependencyService.RegisterSingleton<IDataStore<Pet>>(new RemoteCreatureStore());
             DependencyService.RegisterSingleton<IDataStore<Pet>>(new LocalCreatureStore());
             MainPage = new AppShell();
         }

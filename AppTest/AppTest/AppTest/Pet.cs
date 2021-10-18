@@ -13,21 +13,25 @@ namespace AppTest
         private static Pet instance = null;
         private static readonly object padlock = new object();
 
+        public int ID { get => id; set => id = value; }
+
+        public int id;
+        public string name = "Test";
+        public Stat hunger = new Stat("Food", 1f, Stat.TypeStat.hunger);
+        public Stat thirst = new Stat("Drink", 1f, Stat.TypeStat.thirst);
+        public Stat tired = new Stat("Sleep", 1f, Stat.TypeStat.sleep);
+        public Stat boredom = new Stat("Boredom", 1f, Stat.TypeStat.bored);
+        public Stat stimulated = new Stat("Excitedment", 1f, Stat.TypeStat.excited);
+        public Stat loneliness = new Stat("Lonelyness", 1f, Stat.TypeStat.lonely);
+
         public bool sleeping;
 
-        public Stat food = new Stat("Food", 1f, Stat.TypeStat.hunger);
-        public Stat drink = new Stat("Drink", 1f, Stat.TypeStat.thirst);
-        public Stat sleep = new Stat("Sleep", 1f, Stat.TypeStat.sleep);
-        public Stat boredom = new Stat("Boredom", 1f, Stat.TypeStat.bored);
-        public Stat excited = new Stat("Excitedment", 1f, Stat.TypeStat.excited);
-        public Stat lonely = new Stat("Lonelyness", 1f, Stat.TypeStat.lonely);
-
         public bool initialized = false;
-        public IDataStore<Pet> localDataStore;
+        public IDataStore<Pet> dataStore;
 
         public Pet()
         {
-            localDataStore = DependencyService.Get<IDataStore<Pet>>();
+            dataStore = DependencyService.Get<IDataStore<Pet>>();
         }
 
         public static Pet PetInstance
@@ -45,44 +49,46 @@ namespace AppTest
             }
         }
 
-        public void LoadStats()
+        public async void LoadStats()
         {
-            Pet pet = localDataStore.ReadItem();
+            Pet pet = await dataStore.ReadItem();
             if (pet != null)
             {
                 Debug.WriteLine("Found Save File!");
 
-                food = pet.food;
-                drink = pet.drink;
-                sleep = pet.sleep;
+                hunger = pet.hunger;
+                thirst = pet.thirst;
+                tired = pet.tired;
                 boredom = pet.boredom;
-                excited = pet.excited;
-                lonely = pet.lonely;
+                stimulated = pet.stimulated;
+                loneliness = pet.loneliness;
                 sleeping = pet.sleeping;
 
-                if (food.StatValue <= 0)
-                    food.StatValue = 0.01f;
-                if (drink.StatValue <= 0)
-                    drink.StatValue = 0.01f;
-                if (sleep.StatValue <= 0)
-                    sleep.StatValue = 0.01f;
+                if (hunger.StatValue <= 0)
+                    hunger.StatValue = 0.01f;
+                if (thirst.StatValue <= 0)
+                    thirst.StatValue = 0.01f;
+                if (tired.StatValue <= 0)
+                    tired.StatValue = 0.01f;
                 if (boredom.StatValue <= 0)
                     boredom.StatValue = 0.01f;
-                if (excited.StatValue <= 0)
-                    excited.StatValue = 0.01f;
-                if (lonely.StatValue <= 0)
-                    lonely.StatValue = 0.01f;
+                if (stimulated.StatValue <= 0)
+                    stimulated.StatValue = 0.01f;
+                if (loneliness.StatValue <= 0)
+                    loneliness.StatValue = 0.01f;
             }
             else
             {
-                localDataStore.CreateItem(this);
+                Debug.WriteLine("Found NO Save File!");
+
+                await dataStore.CreateItem(this);
             }
             initialized = true;
         }
 
         public void SaveStats()
         {
-            localDataStore.UpdateItem(this);
+            dataStore.UpdateItem(this);
         }
     }
 }

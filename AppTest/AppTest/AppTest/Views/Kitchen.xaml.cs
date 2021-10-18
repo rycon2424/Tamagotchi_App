@@ -45,13 +45,13 @@ namespace AppTest.Views
         }
         public void GainFood(object sender, EventArgs args)
         {
-            Pet.PetInstance.food.StatValue += 0.1f;
+            Pet.PetInstance.hunger.StatValue += 0.1f;
             RefreshContent();
         }
 
         public void GainWater(object sender, EventArgs args)
         {
-            Pet.PetInstance.drink.StatValue += 0.1f;
+            Pet.PetInstance.thirst.StatValue += 0.1f;
             RefreshContent();
         }
 

@@ -2,42 +2,43 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace AppTest
 {
     public class LocalCreatureStore : IDataStore<Pet>
     {
-        public bool CreateItem(Pet item)
+        public Task<bool> CreateItem(Pet item)
         {
             string pet = JsonConvert.SerializeObject(this);
             Preferences.Set("MyPet", pet);
-            return true;
+            return Task.FromResult(true);
         }
 
-        public bool DeleteItem(Pet item)
+        public Task<bool> DeleteItem(Pet item)
         {
             Preferences.Remove("MyPet");
 
-            return true;
+            return Task.FromResult(true);
         }
 
-        public Pet ReadItem()
+        public Task<Pet> ReadItem()
         {
             string petStats = Preferences.Get("MyPet", "");
             Pet pet = JsonConvert.DeserializeObject<Pet>(petStats);
-            return pet;
+            return Task.FromResult(pet);
         }
 
-        public bool UpdateItem(Pet item)
+        public Task<bool> UpdateItem(Pet item)
         {
             if (Preferences.ContainsKey("MyPet"))
             {
                 string pet = JsonConvert.SerializeObject(item);
                 Preferences.Set("MyPet", pet);
-                return true;
+                return Task.FromResult(true);
             }
-            return false;
+            return Task.FromResult(false);
         }
     }
 }

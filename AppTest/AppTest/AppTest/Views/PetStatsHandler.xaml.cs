@@ -67,10 +67,10 @@ namespace AppTest.Views
         {
             bool sleepy = false;
             bool sleeping = Pet.PetInstance.sleeping;
-            if (Pet.PetInstance.sleep.StatValue < 0.2f)
+            if (Pet.PetInstance.tired.StatValue < 0.2f)
                 sleepy = true;
 
-            if (Pet.PetInstance.food.StatValue < 0.1f || Pet.PetInstance.drink.StatValue < 0.1f)
+            if (Pet.PetInstance.hunger.StatValue < 0.1f || Pet.PetInstance.thirst.StatValue < 0.1f)
             {
                 if (sleeping)
                     return "pet_dragon_hungry_sleeping.png";
@@ -78,7 +78,7 @@ namespace AppTest.Views
                     return "pet_dragon_hungry_sleepy.png";
                 return "pet_dragon_hungry.png";
             }
-            else if (Pet.PetInstance.lonely.StatValue < 0.1f)
+            else if (Pet.PetInstance.loneliness.StatValue < 0.1f)
             {
                 if (sleeping)
                     return "pet_dragon_bored_sleeping.png";
@@ -139,12 +139,12 @@ namespace AppTest.Views
                 }
             }
 
-            grid.Children.Add(CreateStat(0, Pet.PetInstance.food), 0, 0);
-            grid.Children.Add(CreateStat(1, Pet.PetInstance.drink), 1, 0);
-            grid.Children.Add(CreateStat(2, Pet.PetInstance.sleep), 2, 0);
+            grid.Children.Add(CreateStat(0, Pet.PetInstance.hunger), 0, 0);
+            grid.Children.Add(CreateStat(1, Pet.PetInstance.thirst), 1, 0);
+            grid.Children.Add(CreateStat(2, Pet.PetInstance.tired), 2, 0);
             grid.Children.Add(CreateStat(3, Pet.PetInstance.boredom), 3, 0);
-            grid.Children.Add(CreateStat(4, Pet.PetInstance.lonely), 4, 0);
-            grid.Children.Add(CreateStat(5, Pet.PetInstance.excited), 5, 0);
+            grid.Children.Add(CreateStat(4, Pet.PetInstance.loneliness), 4, 0);
+            grid.Children.Add(CreateStat(5, Pet.PetInstance.stimulated), 5, 0);
 
             grid.Children.Add(PetImage(), 2, 1);
 
