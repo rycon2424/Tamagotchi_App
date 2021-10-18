@@ -22,7 +22,7 @@ namespace AppTest.Views
         }
         public override void RefreshContent()
         {
-            if (Pet.Instance.sleeping == false)
+            if (Pet.PetInstance.sleeping == false)
             {
                 List<GridButton> temp = new List<GridButton>();
 
@@ -40,7 +40,7 @@ namespace AppTest.Views
 
         public void Play(object sender, EventArgs args)
         {
-            Pet.Instance.boredom.StatValue += 0.1f;
+            Pet.PetInstance.boredom.StatValue += 0.1f;
             RefreshContent();
         }
     }

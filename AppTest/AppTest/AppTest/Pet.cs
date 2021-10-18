@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Text;
 using Newtonsoft.Json;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace AppTest
 {
@@ -22,13 +23,14 @@ namespace AppTest
         public Stat lonely = new Stat("Lonelyness", 1f, Stat.TypeStat.lonely);
 
         public bool initialized = false;
+        public IDataStore<Pet> localDataStore;
 
         public Pet()
         {
-
+            localDataStore = DependencyService.Get<IDataStore<Pet>>();
         }
 
-        public static Pet Instance
+        public static Pet PetInstance
         {
             get
             {
@@ -45,10 +47,10 @@ namespace AppTest
 
         public void LoadStats()
         {
-            if (LoadSave() != "")
+            Pet pet = localDataStore.ReadItem();
+            if (pet != null)
             {
                 Debug.WriteLine("Found Save File!");
-                Pet pet = JsonConvert.DeserializeObject<Pet>(LoadSave());
 
                 food = pet.food;
                 drink = pet.drink;
@@ -73,27 +75,14 @@ namespace AppTest
             }
             else
             {
-                Debug.WriteLine("No Save File!");
-                food = new Stat("Food", 1f, Stat.TypeStat.hunger);
-                drink = new Stat("Drink", 1f, Stat.TypeStat.thirst);
-                sleep = new Stat("Sleep", 1f, Stat.TypeStat.sleep);
-                boredom = new Stat("Boredom", 1f, Stat.TypeStat.bored);
-                excited = new Stat("Excitedment", 1f, Stat.TypeStat.excited);
-                lonely = new Stat("Lonelyness", 1f, Stat.TypeStat.lonely);
+                localDataStore.CreateItem(this);
             }
-
             initialized = true;
-        }
-        private string LoadSave()
-        {
-            string petStats = Preferences.Get("MyPet", "");
-            return petStats;
         }
 
         public void SaveStats()
         {
-            string pet = JsonConvert.SerializeObject(this);
-            Preferences.Set("MyPet", pet);
+            localDataStore.UpdateItem(this);
         }
     }
 }

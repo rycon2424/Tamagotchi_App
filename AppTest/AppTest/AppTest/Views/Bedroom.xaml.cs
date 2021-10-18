@@ -34,7 +34,7 @@ namespace AppTest.Views
 
         public void SwapDayNightTime(object sender, EventArgs args)
         {
-            Pet.Instance.sleeping = !Pet.Instance.sleeping;
+            Pet.PetInstance.sleeping = !Pet.PetInstance.sleeping;
         }
     }
 }

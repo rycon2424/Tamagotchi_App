@@ -66,11 +66,11 @@ namespace AppTest.Views
         string PetBehaviour()
         {
             bool sleepy = false;
-            bool sleeping = Pet.Instance.sleeping;
-            if (Pet.Instance.sleep.StatValue < 0.2f)
+            bool sleeping = Pet.PetInstance.sleeping;
+            if (Pet.PetInstance.sleep.StatValue < 0.2f)
                 sleepy = true;
 
-            if (Pet.Instance.food.StatValue < 0.1f || Pet.Instance.drink.StatValue < 0.1f)
+            if (Pet.PetInstance.food.StatValue < 0.1f || Pet.PetInstance.drink.StatValue < 0.1f)
             {
                 if (sleeping)
                     return "pet_dragon_hungry_sleeping.png";
@@ -78,7 +78,7 @@ namespace AppTest.Views
                     return "pet_dragon_hungry_sleepy.png";
                 return "pet_dragon_hungry.png";
             }
-            else if (Pet.Instance.lonely.StatValue < 0.1f)
+            else if (Pet.PetInstance.lonely.StatValue < 0.1f)
             {
                 if (sleeping)
                     return "pet_dragon_bored_sleeping.png";
@@ -86,7 +86,7 @@ namespace AppTest.Views
                     return "pet_dragon_lonely_sleepy.png";
                 return "pet_dragon_lonely.png";
             }
-            else if (Pet.Instance.boredom.StatValue < 0.1f)
+            else if (Pet.PetInstance.boredom.StatValue < 0.1f)
             {
                 if (sleeping)
                     return "pet_dragon_bored_sleeping.png";
@@ -105,7 +105,7 @@ namespace AppTest.Views
         }
         public Grid Icons(List<GridButton> extraButtons)
         {
-            if (Pet.Instance.sleeping)
+            if (Pet.PetInstance.sleeping)
             {
                 BackgroundColor = Color.MidnightBlue;
             }
@@ -139,12 +139,12 @@ namespace AppTest.Views
                 }
             }
 
-            grid.Children.Add(CreateStat(0, Pet.Instance.food), 0, 0);
-            grid.Children.Add(CreateStat(1, Pet.Instance.drink), 1, 0);
-            grid.Children.Add(CreateStat(2, Pet.Instance.sleep), 2, 0);
-            grid.Children.Add(CreateStat(3, Pet.Instance.boredom), 3, 0);
-            grid.Children.Add(CreateStat(4, Pet.Instance.lonely), 4, 0);
-            grid.Children.Add(CreateStat(5, Pet.Instance.excited), 5, 0);
+            grid.Children.Add(CreateStat(0, Pet.PetInstance.food), 0, 0);
+            grid.Children.Add(CreateStat(1, Pet.PetInstance.drink), 1, 0);
+            grid.Children.Add(CreateStat(2, Pet.PetInstance.sleep), 2, 0);
+            grid.Children.Add(CreateStat(3, Pet.PetInstance.boredom), 3, 0);
+            grid.Children.Add(CreateStat(4, Pet.PetInstance.lonely), 4, 0);
+            grid.Children.Add(CreateStat(5, Pet.PetInstance.excited), 5, 0);
 
             grid.Children.Add(PetImage(), 2, 1);
 

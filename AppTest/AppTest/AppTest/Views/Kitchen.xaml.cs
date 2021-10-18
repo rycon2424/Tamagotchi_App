@@ -23,7 +23,7 @@ namespace AppTest.Views
         }
         public override void RefreshContent()
         {
-            if (Pet.Instance.sleeping == false)
+            if (Pet.PetInstance.sleeping == false)
             {
                 List<GridButton> temp = new List<GridButton>();
 
@@ -45,13 +45,13 @@ namespace AppTest.Views
         }
         public void GainFood(object sender, EventArgs args)
         {
-            Pet.Instance.food.StatValue += 0.1f;
+            Pet.PetInstance.food.StatValue += 0.1f;
             RefreshContent();
         }
 
         public void GainWater(object sender, EventArgs args)
         {
-            Pet.Instance.drink.StatValue += 0.1f;
+            Pet.PetInstance.drink.StatValue += 0.1f;
             RefreshContent();
         }
 

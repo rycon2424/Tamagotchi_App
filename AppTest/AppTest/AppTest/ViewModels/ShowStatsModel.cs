@@ -15,24 +15,24 @@ namespace AppTest.ViewModels
 
         public ShowStatsModel()
         {
-            if (Pet.Instance.initialized == false)
+            if (Pet.PetInstance.initialized == false)
             {
-                Pet.Instance.LoadStats();
+                Pet.PetInstance.LoadStats();
                 InitializeDecay();
             }
         }
 
         void InitializeDecay()
         {
-            DecayStat(Pet.Instance.food, 5f);
-            DecayStat(Pet.Instance.drink, 3f);
-            DecayStat(Pet.Instance.sleep, 20f);
-            DecayStat(Pet.Instance.boredom, 10f);
-            DecayStat(Pet.Instance.lonely, 12f);
+            DecayStat(Pet.PetInstance.food, 5f);
+            DecayStat(Pet.PetInstance.drink, 3f);
+            DecayStat(Pet.PetInstance.sleep, 20f);
+            DecayStat(Pet.PetInstance.boredom, 10f);
+            DecayStat(Pet.PetInstance.lonely, 12f);
 
             GainSleep();
 
-            UpdateStat(Pet.Instance.excited);
+            UpdateStat(Pet.PetInstance.excited);
         }
 
         async void DecayStat(Stat decayingStat, float secondsBetweenDecay)
@@ -55,9 +55,9 @@ namespace AppTest.ViewModels
         {
             while (true)
             {
-                if (Pet.Instance.sleeping)
+                if (Pet.PetInstance.sleeping)
                 {
-                    Pet.Instance.sleep.StatValue += 0.05f;
+                    Pet.PetInstance.sleep.StatValue += 0.05f;
                 }
                 await Task.Delay(TimeSpan.FromSeconds(5));
             }
@@ -105,26 +105,26 @@ namespace AppTest.ViewModels
         {
             set
             {
-                Color _ = Pet.Instance.food.StatColor;
+                Color _ = Pet.PetInstance.food.StatColor;
                 SetProperty(ref _, value);
             }
             get
             {
-                Pet.Instance.food.StatValue = RoundState(Pet.Instance.food);
-                return Pet.Instance.food.StatColor;
+                Pet.PetInstance.food.StatValue = RoundState(Pet.PetInstance.food);
+                return Pet.PetInstance.food.StatColor;
             }
         }
         public Color DrinkState
         {
             set
             {
-                Color _ = Pet.Instance.drink.StatColor;
+                Color _ = Pet.PetInstance.drink.StatColor;
                 SetProperty(ref _, value);
             }
             get
             {
-                Pet.Instance.drink.StatValue = RoundState(Pet.Instance.drink);
-                return Pet.Instance.drink.StatColor;
+                Pet.PetInstance.drink.StatValue = RoundState(Pet.PetInstance.drink);
+                return Pet.PetInstance.drink.StatColor;
             }
         }
 
@@ -132,13 +132,13 @@ namespace AppTest.ViewModels
         {
             set
             {
-                Color _ = Pet.Instance.boredom.StatColor;
+                Color _ = Pet.PetInstance.boredom.StatColor;
                 SetProperty(ref _, value);
             }
             get
             {
-                Pet.Instance.boredom.StatValue = RoundState(Pet.Instance.boredom);
-                return Pet.Instance.boredom.StatColor;
+                Pet.PetInstance.boredom.StatValue = RoundState(Pet.PetInstance.boredom);
+                return Pet.PetInstance.boredom.StatColor;
             }
         }
 
@@ -146,13 +146,13 @@ namespace AppTest.ViewModels
         {
             set
             {
-                Color _ = Pet.Instance.sleep.StatColor;
+                Color _ = Pet.PetInstance.sleep.StatColor;
                 SetProperty(ref _, value);
             }
             get
             {
-                Pet.Instance.sleep.StatValue = RoundState(Pet.Instance.sleep);
-                return Pet.Instance.sleep.StatColor;
+                Pet.PetInstance.sleep.StatValue = RoundState(Pet.PetInstance.sleep);
+                return Pet.PetInstance.sleep.StatColor;
             }
         }
 
@@ -160,13 +160,13 @@ namespace AppTest.ViewModels
         {
             set
             {
-                Color _ = Pet.Instance.lonely.StatColor;
+                Color _ = Pet.PetInstance.lonely.StatColor;
                 SetProperty(ref _, value);
             }
             get
             {
-                Pet.Instance.lonely.StatValue = RoundState(Pet.Instance.lonely);
-                return Pet.Instance.lonely.StatColor;
+                Pet.PetInstance.lonely.StatValue = RoundState(Pet.PetInstance.lonely);
+                return Pet.PetInstance.lonely.StatColor;
             }
         }
 
@@ -174,13 +174,13 @@ namespace AppTest.ViewModels
         {
             set
             {
-                Color _ = Pet.Instance.excited.StatColor;
+                Color _ = Pet.PetInstance.excited.StatColor;
                 SetProperty(ref _, value);
             }
             get
             {
-                Pet.Instance.excited.StatValue = RoundState(Pet.Instance.excited);
-                return Pet.Instance.excited.StatColor;
+                Pet.PetInstance.excited.StatValue = RoundState(Pet.PetInstance.excited);
+                return Pet.PetInstance.excited.StatColor;
             }
         }
     }

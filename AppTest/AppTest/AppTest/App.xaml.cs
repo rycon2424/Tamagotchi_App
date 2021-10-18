@@ -1,5 +1,4 @@
-﻿using AppTest.Services;
-using AppTest.Views;
+﻿using AppTest.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,7 +13,7 @@ namespace AppTest
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            DependencyService.RegisterSingleton<IDataStore<Pet>>(new LocalCreatureStore());
             MainPage = new AppShell();
         }
 
@@ -26,7 +25,7 @@ namespace AppTest
         protected override void OnSleep()
         {
             Debug.WriteLine("Saved!");
-            Pet.Instance.SaveStats();
+            Pet.PetInstance.SaveStats();
         }
 
         protected override void OnResume()
