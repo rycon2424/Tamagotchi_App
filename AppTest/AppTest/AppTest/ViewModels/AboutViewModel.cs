@@ -9,10 +9,23 @@ namespace AppTest.ViewModels
     {
         public AboutViewModel()
         {
-            Title = "About";
-            OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://aka.ms/xamarin-quickstart"));
+            Title = "Options";
+            deleteAndReset = new Command(DeletePet);
         }
 
-        public ICommand OpenWebCommand { get; }
+        private Command deleteAndReset;
+
+        public ICommand DeleteAndReset
+        {
+            get
+            {
+                return deleteAndReset;
+            }
+        }
+
+        private void DeletePet()
+        {
+            Pet.PetInstance.DeletePet();
+        }
     }
 }

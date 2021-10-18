@@ -95,5 +95,12 @@ namespace AppTest
             po.UpdateStats(this);
             dataStore.UpdateItem(po);
         }
+
+        public void DeletePet()
+        {
+            PetObject po = new PetObject();
+            po.UpdateStats(this);
+            dataStore.DeleteItem(po);
+        }
     }
 }
