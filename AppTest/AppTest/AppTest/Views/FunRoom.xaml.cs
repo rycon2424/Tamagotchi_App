@@ -14,6 +14,9 @@ namespace AppTest.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FunRoom : PetStatsHandler
     {
+        Random rnd = new Random();
+        int buttonLocation = 1;
+
         public FunRoom()
         {
             InitializeComponent();
@@ -29,7 +32,7 @@ namespace AppTest.Views
                 Button petButton = CreateButton("Play", 16);
                 petButton.Clicked += Play;
 
-                temp.Add(new GridButton(petButton, 1, 2));
+                temp.Add(new GridButton(petButton, buttonLocation, 2));
                 Content = Icons(temp);
             }
             else
@@ -41,6 +44,15 @@ namespace AppTest.Views
         public void Play(object sender, EventArgs args)
         {
             Pet.PetInstance.boredom.StatValue += 0.1f;
+            int temp = rnd.Next(0, 100);
+            if (temp > 75)
+                buttonLocation = 1;
+            else if (temp > 50)
+                buttonLocation = 4;
+            else if (temp > 25)
+                buttonLocation = 0;
+            else if (temp >= 0)
+                buttonLocation = 5;
             RefreshContent();
         }
     }
