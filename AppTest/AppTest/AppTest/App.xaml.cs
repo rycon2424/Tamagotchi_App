@@ -13,8 +13,8 @@ namespace AppTest
         {
             InitializeComponent();
 
-            //DependencyService.RegisterSingleton<IDataStore<Pet>>(new RemoteCreatureStore());
-            DependencyService.RegisterSingleton<IDataStore<Pet>>(new LocalCreatureStore());
+            DependencyService.RegisterSingleton<IDataStore<PetObject>>(new RemoteCreatureStore());
+            //DependencyService.RegisterSingleton<IDataStore<Pet>>(new LocalCreatureStore());
             MainPage = new AppShell();
         }
 
@@ -25,7 +25,6 @@ namespace AppTest
 
         protected override void OnSleep()
         {
-            Debug.WriteLine("Saved!");
             Pet.PetInstance.SaveStats();
         }
 

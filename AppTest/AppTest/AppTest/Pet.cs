@@ -27,11 +27,11 @@ namespace AppTest
         public bool sleeping;
 
         public bool initialized = false;
-        public IDataStore<Pet> dataStore;
+        public IDataStore<PetObject> dataStore;
 
         public Pet()
         {
-            dataStore = DependencyService.Get<IDataStore<Pet>>();
+            dataStore = DependencyService.Get<IDataStore<PetObject>>();
         }
 
         public static Pet PetInstance
@@ -51,18 +51,17 @@ namespace AppTest
 
         public async void LoadStats()
         {
-            Pet pet = await dataStore.ReadItem();
+            PetObject pet = await dataStore.ReadItem();
             if (pet != null)
             {
                 Debug.WriteLine("Found Save File!");
 
-                hunger = pet.hunger;
-                thirst = pet.thirst;
-                tired = pet.tired;
-                boredom = pet.boredom;
-                stimulated = pet.stimulated;
-                loneliness = pet.loneliness;
-                sleeping = pet.sleeping;
+                hunger.StatValue = pet.hunger;
+                thirst.StatValue = pet.thirst;
+                tired.StatValue = pet.tired;
+                boredom.StatValue = pet.boredom;
+                stimulated.StatValue = pet.stimulated;
+                loneliness.StatValue = pet.loneliness;
 
                 if (hunger.StatValue <= 0)
                     hunger.StatValue = 0.01f;
@@ -81,14 +80,16 @@ namespace AppTest
             {
                 Debug.WriteLine("Found NO Save File!");
 
-                await dataStore.CreateItem(this);
+                await dataStore.CreateItem(new PetObject());
             }
             initialized = true;
         }
 
         public void SaveStats()
         {
-            dataStore.UpdateItem(this);
+            PetObject po = new PetObject();
+            po.UpdateStats(this);
+            dataStore.UpdateItem(po);
         }
     }
 }

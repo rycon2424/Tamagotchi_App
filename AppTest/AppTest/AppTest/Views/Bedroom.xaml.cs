@@ -8,6 +8,7 @@ using AppTest.Models;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
 
 namespace AppTest.Views
 {
@@ -34,7 +35,9 @@ namespace AppTest.Views
 
         public void SwapDayNightTime(object sender, EventArgs args)
         {
-            Pet.PetInstance.sleeping = !Pet.PetInstance.sleeping;
+            //Preferences.Remove("MyPetID");
+            Pet.PetInstance.SaveStats();
+            //Pet.PetInstance.sleeping = !Pet.PetInstance.sleeping;
         }
     }
 }

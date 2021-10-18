@@ -9,13 +9,13 @@ using Xamarin.Essentials;
 
 namespace AppTest
 {
-    public class RemoteCreatureStore : IDataStore<Pet>
+    public class RemoteCreatureStore : IDataStore<PetObject>
     {
         private HttpClient client = new HttpClient();
 
-        public async Task<bool> CreateItem(Pet item) // POST
+        public async Task<bool> CreateItem(PetObject item) // POST
         {
-            string pet = JsonConvert.SerializeObject(this);
+            string pet = JsonConvert.SerializeObject(item);
 
             try
             {
@@ -24,13 +24,11 @@ namespace AppTest
                 {
                     var postedPetAsText = await response.Content.ReadAsStringAsync();
 
-                    Debug.WriteLine("HMMMMMMMMMMMMMMMMMMMMM " + postedPetAsText);
+                    PetObject postedPet = JsonConvert.DeserializeObject<PetObject>(postedPetAsText);
 
-                    Pet postedPet = JsonConvert.DeserializeObject<Pet>(postedPetAsText);
+                    Debug.WriteLine("Create Pet with ID " + postedPet.id);
 
-                    Debug.WriteLine("ID ============================ " + postedPet.ID);
-
-                    Preferences.Set("MyPetID", postedPet.ID);
+                    Preferences.Set("MyPetID", postedPet.id);
 
                     return true;
                 }
@@ -46,12 +44,13 @@ namespace AppTest
             }
         }
 
-        public Task<bool> DeleteItem(Pet item) // DELETE
+        public Task<bool> DeleteItem(PetObject item) // DELETE
         {
+            Preferences.Remove("MyPetID");
             return Task.FromResult(true);
         }
 
-        public async Task<Pet> ReadItem() // GET
+        public async Task<PetObject> ReadItem() // GET
         {
             int petID = Preferences.Get("MyPetID", 0);
             if (petID == 0)
@@ -59,14 +58,16 @@ namespace AppTest
                 return null;
             }
 
-            var response = await client.GetAsync("https://tamagotchi.hku.nl/api/Creatures/2");
+            var response = await client.GetAsync("https://tamagotchi.hku.nl/api/Creatures/" + petID);
             if (response.IsSuccessStatusCode)
             {
                 string petAsText = await response.Content.ReadAsStringAsync();
 
-                Pet pet = JsonConvert.DeserializeObject<Pet>(petAsText);
+                Debug.WriteLine("Retrieving pet in api = " + petAsText + " ....");
 
-                Preferences.Set("MyPetID", pet.ID);
+                PetObject pet = JsonConvert.DeserializeObject<PetObject>(petAsText);
+
+                Debug.WriteLine("Retrieving pet = " + petAsText + " successfull");
 
                 return pet;
             }
@@ -75,9 +76,37 @@ namespace AppTest
 
         }
 
-        public Task<bool> UpdateItem(Pet item) // PUT
+        public async Task<bool> UpdateItem(PetObject item) // PUT
         {
-            return Task.FromResult(true);
+            int petID = Preferences.Get("MyPetID", 0);
+            if (petID == 0)
+            {
+                return false;
+            }
+
+            item.id = petID;
+            string pet = JsonConvert.SerializeObject(item);
+
+            try
+            {
+                var response = await client.PutAsync("https://tamagotchi.hku.nl/api/Creatures/" + petID, new StringContent(pet, Encoding.UTF8, "application/json"));
+                Debug.WriteLine("Test = " + new StringContent(pet, Encoding.UTF8, "application/json"));
+                if (response.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine("Succesfully updated pet in database");
+                    return true;
+                }
+                else
+                {
+                    Debug.WriteLine("Failed to update pet in database https://tamagotchi.hku.nl/api/Creatures/" + petID + " " + response.StatusCode);
+                    return false;
+                }
+            }
+            catch (HttpRequestException h)
+            {
+                Debug.WriteLine("failed with error code " + h.Message);
+                return false;
+            }
         }
     }
 }
