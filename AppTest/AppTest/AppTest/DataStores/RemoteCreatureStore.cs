@@ -177,5 +177,30 @@ namespace AppTest
                 return false;
             }
         }
+
+        public async Task<PetObject> GetInfoFromPlayGround()
+        {
+            int petID = Preferences.Get("MyPetID", 0);
+            if (petID == 0)
+            {
+                return null;
+            }
+
+            var response = await client.GetAsync("https://tamagotchi.hku.nl/api/Playground/" + petID);
+            if (response.IsSuccessStatusCode)
+            {
+                string petAsText = await response.Content.ReadAsStringAsync();
+
+                Debug.WriteLine("Retrieving pet in api = " + petAsText + " ....");
+
+                PetObject pet = JsonConvert.DeserializeObject<PetObject>(petAsText);
+
+                Debug.WriteLine("Pet retrieved time = " + pet.enterTime);
+
+                return pet;
+            }
+
+            return null;
+        }
     }
 }

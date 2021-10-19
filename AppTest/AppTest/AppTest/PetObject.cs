@@ -16,6 +16,8 @@ namespace AppTest
         public float stimulated = 1;
         public float loneliness = 1;
 
+        public DateTime enterTime;
+
         public void UpdateStats(Pet p)
         {
             name = p.name;

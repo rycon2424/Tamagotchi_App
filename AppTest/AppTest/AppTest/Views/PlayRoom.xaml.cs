@@ -9,6 +9,7 @@ using AppTest.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Xamarin.Essentials;
+using System.Diagnostics;
 
 namespace AppTest.Views
 {
@@ -82,6 +83,14 @@ namespace AppTest.Views
 
         public async void RetrievePetFromPlayGround(object sender, EventArgs args)
         {
+            PetObject po = await Pet.PetInstance.dataStore.GetInfoFromPlayGround();
+            var timeInPlayGround = (DateTime.Now - po.enterTime).TotalMinutes;
+            float timePlaying = (float)(timeInPlayGround / 100);
+
+            Debug.WriteLine($"Was playing for {timeInPlayGround} seconds which equals to {timePlaying} loneliness");
+            // Each Minute playing gives +10 Loneliness
+            UpdateVisuals(Pet.PetInstance.loneliness, timePlaying);
+
             await Pet.PetInstance.dataStore.RemoveFromPlayGround();
             AllPages.UpdateAllPages();
             RefreshContent();

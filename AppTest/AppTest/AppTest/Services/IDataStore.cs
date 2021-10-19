@@ -14,5 +14,6 @@ namespace AppTest
 
         Task<bool> SendToPlayGround(T item);
         Task<bool> RemoveFromPlayGround();
+        Task<PetObject> GetInfoFromPlayGround();
     }
 }

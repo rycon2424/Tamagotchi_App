@@ -27,11 +27,11 @@ namespace AppTest.ViewModels
 
         public void InitializeDecay()
         {
-            DecayStat(Pet.PetInstance.hunger, 5f, -0.01f);
-            DecayStat(Pet.PetInstance.thirst, 3f, -0.01f);
+            DecayStat(Pet.PetInstance.hunger, 20f, -0.01f);
+            DecayStat(Pet.PetInstance.thirst, 15f, -0.01f);
             DecayStat(Pet.PetInstance.tired, 20f, -0.01f);
-            DecayStat(Pet.PetInstance.boredom, 10f, -0.01f);
-            DecayStat(Pet.PetInstance.loneliness, 12f, -0.01f);
+            DecayStat(Pet.PetInstance.boredom, 30f, -0.01f);
+            DecayStat(Pet.PetInstance.loneliness, 30f, -0.01f);
 
             GainSleep();
 
@@ -49,15 +49,17 @@ namespace AppTest.ViewModels
             var sleepAmount = (DateTime.Now - timeAsleep).TotalHours;
 
             if (Pet.PetInstance.sleeping)
-                UpdateStat(Pet.PetInstance.tired, (float)sleepAmount / 10); // Every hour is 10% sleep
+                UpdateStat(Pet.PetInstance.tired, (float)sleepAmount / 10); // Every hour gains 10% sleep
             else
-                UpdateStat(Pet.PetInstance.tired, -((float)sleepAmount / 10)); // Every hour is -10% sleep
+                UpdateStat(Pet.PetInstance.tired, -((float)sleepAmount / 10)); // Every hour loses -10% sleep
 
-            UpdateStat(Pet.PetInstance.hunger, -((float)sleepAmount / 20)); // Every hour is -5% sleep
-            UpdateStat(Pet.PetInstance.thirst, -((float)sleepAmount / 20)); // Every hour is -5% sleep
-            UpdateStat(Pet.PetInstance.boredom, -((float)sleepAmount / 10)); // Every hour is -10% boredom
-            UpdateStat(Pet.PetInstance.stimulated, (float)sleepAmount / 2.5f); // Every hour is -40% stimulated
+            UpdateStat(Pet.PetInstance.hunger, -((float)sleepAmount / 20)); // Every hour loses -5% hunger
+            UpdateStat(Pet.PetInstance.thirst, -((float)sleepAmount / 20)); // Every hour loses -5% thirst
+            UpdateStat(Pet.PetInstance.boredom, -((float)sleepAmount / 10)); // Every hour loses -10% boredom
+            UpdateStat(Pet.PetInstance.stimulated, (float)sleepAmount / 2.5f); // Every hour loses -40% stimulated
 
+            if (Pet.PetInstance.inPlayGround == false)
+                UpdateStat(Pet.PetInstance.loneliness, -((float)sleepAmount / 10)); // Every hour loses -10% boredom;
         }
 
         async void DecayStat(Stat decayingStat, float secondsBetweenDecay, float decayValue)

@@ -43,11 +43,6 @@ namespace AppTest.Views
 
         public void Play(object sender, EventArgs args)
         {
-            if (Pet.PetInstance.stimulated.StatValue <= 0)
-            {
-                return;
-            }
-            UpdateVisuals(Pet.PetInstance.stimulated, -0.1f);
             UpdateVisuals(Pet.PetInstance.boredom, 0.05f);
             int temp = rnd.Next(0, 100);
             if (temp > 75)

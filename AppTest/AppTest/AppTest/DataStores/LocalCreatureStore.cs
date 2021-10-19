@@ -50,5 +50,10 @@ namespace AppTest
         {
             return Task.FromResult(true);
         }
+        public Task<PetObject> GetInfoFromPlayGround()
+        {
+            PetObject po = new PetObject();
+            return Task.FromResult(po);
+        }
     }
 }
