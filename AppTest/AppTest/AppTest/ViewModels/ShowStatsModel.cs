@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Diagnostics;
+using AppTest.Views;
 
 namespace AppTest.ViewModels
 {
@@ -18,26 +19,27 @@ namespace AppTest.ViewModels
             if (Pet.PetInstance.initialized == false)
             {
                 Pet.PetInstance.LoadStats();
+                PetStatsHandler.OnVisualUpdate += UpdateStat;
                 Pet.PetInstance.OnLoadPet += InitializeDecay;
             }
         }
 
         public void InitializeDecay()
         {
-            DecayStat(Pet.PetInstance.hunger, 5f);
-            DecayStat(Pet.PetInstance.thirst, 3f);
-            DecayStat(Pet.PetInstance.tired, 20f);
-            DecayStat(Pet.PetInstance.boredom, 10f);
-            DecayStat(Pet.PetInstance.loneliness, 12f);
+            DecayStat(Pet.PetInstance.hunger, 5f, -0.01f);
+            DecayStat(Pet.PetInstance.thirst, 3f, -0.01f);
+            DecayStat(Pet.PetInstance.tired, 20f, -0.01f);
+            DecayStat(Pet.PetInstance.boredom, 10f, -0.01f);
+            DecayStat(Pet.PetInstance.loneliness, 12f, -0.01f);
 
             GainSleep();
 
-            UpdateStat(Pet.PetInstance.stimulated);
+            UpdateStat(Pet.PetInstance.stimulated, 0);
 
             OnStateUpdate();
         }
 
-        async void DecayStat(Stat decayingStat, float secondsBetweenDecay)
+        async void DecayStat(Stat decayingStat, float secondsBetweenDecay, float decayValue)
         {
             while (true)
             {
@@ -45,10 +47,9 @@ namespace AppTest.ViewModels
                 {
                     if (decayingStat.StatValue > 0)
                     {
-                        UpdateStat(decayingStat);
+                        UpdateStat(decayingStat, decayValue);
                     }
                 }
-                OnStateUpdate();
                 await Task.Delay(TimeSpan.FromSeconds(secondsBetweenDecay));
             }
         }
@@ -65,9 +66,9 @@ namespace AppTest.ViewModels
             }
         }
 
-        public void UpdateStat(Stat stat)
+        public void UpdateStat(Stat stat, float decayValue)
         {
-            stat.StatValue -= 0.01f;
+            stat.StatValue += decayValue;
             switch (stat.StatType)
             {
                 case Stat.TypeStat.hunger:
@@ -92,6 +93,7 @@ namespace AppTest.ViewModels
                     break;
             }
             stat.UpdateColor();
+            OnStateUpdate();
         }
 
         float RoundState(Stat s)

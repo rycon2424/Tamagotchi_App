@@ -19,7 +19,7 @@ namespace AppTest
         public int ID { get => id; set => id = value; }
 
         public int id;
-        public string name = "Test";
+        public string name = "Dragoni";
         public Stat hunger = new Stat("Food", 1f, Stat.TypeStat.hunger);
         public Stat thirst = new Stat("Drink", 1f, Stat.TypeStat.thirst);
         public Stat tired = new Stat("Sleep", 1f, Stat.TypeStat.sleep);

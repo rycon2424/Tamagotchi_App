@@ -43,7 +43,12 @@ namespace AppTest.Views
 
         public void PetPet(object sender, EventArgs args)
         {
-            Pet.PetInstance.loneliness.StatValue += 0.1f;
+            if (Pet.PetInstance.stimulated.StatValue <= 0)
+            {
+                return;
+            }
+            UpdateVisuals(Pet.PetInstance.stimulated, -0.05f);
+            UpdateVisuals(Pet.PetInstance.loneliness, 0.1f);
             RefreshContent();
         }
     }

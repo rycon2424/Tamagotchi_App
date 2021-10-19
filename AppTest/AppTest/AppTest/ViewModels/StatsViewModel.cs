@@ -20,17 +20,26 @@ namespace AppTest.ViewModels
 
         public void UpdateValues()
         {
-            FoodValue = GetPercentage(Pet.PetInstance.hunger);
-            DrinkValue = GetPercentage(Pet.PetInstance.thirst);
-            BedValue = GetPercentage(Pet.PetInstance.tired);
-            LonelyValue = GetPercentage(Pet.PetInstance.loneliness);
-            FunValue = GetPercentage(Pet.PetInstance.boredom);
-            ExcitementValue = GetPercentage(Pet.PetInstance.stimulated);
+            FoodValue = GetPercentage(Pet.PetInstance.hunger, false);
+            DrinkValue = GetPercentage(Pet.PetInstance.thirst, false);
+            BedValue = GetPercentage(Pet.PetInstance.tired, false);
+            LonelyValue = GetPercentage(Pet.PetInstance.loneliness, false);
+            FunValue = GetPercentage(Pet.PetInstance.boredom, false);
+            ExcitementValue = GetPercentage(Pet.PetInstance.stimulated, true);
         }
 
-        string GetPercentage(Stat s)
+        string GetPercentage(Stat s, bool inverse)
         {
-            string temp = (Math.Round(Convert.ToDecimal(s.StatValue * 100), 0).ToString());
+            string temp = "";
+            if (inverse)
+            {
+                //temp = Math.Round((Convert.ToDecimal(s.StatValue * 100)) - 100 * -1, 0).ToString();
+                int tempInt = (int)Math.Round(Convert.ToDecimal(s.StatValue * 100), 0);
+                tempInt = (tempInt - 100) * -1;
+                temp = tempInt.ToString();
+            }
+            else
+                temp = Math.Round(Convert.ToDecimal(s.StatValue * 100), 0).ToString();
             temp += "%";
             return temp;
         }

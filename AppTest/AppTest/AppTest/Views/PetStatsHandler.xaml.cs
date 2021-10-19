@@ -17,6 +17,9 @@ namespace AppTest.Views
     {
         string[] statTypes = new string[] { "Food.png", "Water.png", "Bed.png", "Boredom.png", "Lonely.png", "Excited.png" };
 
+        public delegate void UpdateVisual(Stat stat, float decayValue);
+        public static event UpdateVisual OnVisualUpdate;
+
         public PetStatsHandler()
         {
             InitializeComponent();
@@ -26,6 +29,11 @@ namespace AppTest.Views
             ShowStatsModel.OnStateUpdate += RefreshContent;
 
             this.ToolbarItems.Add(ShopToolBarIcon());
+        }
+
+        public void UpdateVisuals(Stat stat, float decayValue)
+        {
+            OnVisualUpdate(stat, decayValue);
         }
 
         public virtual void RefreshContent()
@@ -111,7 +119,7 @@ namespace AppTest.Views
             }
             else
             {
-                BackgroundColor = Color.SkyBlue;
+                BackgroundColor = Color.CornflowerBlue;
             }
 
             Grid grid = new Grid
