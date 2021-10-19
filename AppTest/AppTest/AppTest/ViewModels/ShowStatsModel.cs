@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Diagnostics;
 using AppTest.Views;
+using Xamarin.Essentials;
 
 namespace AppTest.ViewModels
 {
@@ -36,7 +37,27 @@ namespace AppTest.ViewModels
 
             UpdateStat(Pet.PetInstance.stimulated, 0);
 
+            UpdateStatsAfterWake();
+
             OnStateUpdate();
+        }
+
+        void UpdateStatsAfterWake()
+        {
+            Pet.PetInstance.sleeping = Preferences.Get("Sleeping", false);
+            DateTime timeAsleep = Preferences.Get("TimeAsleep", DateTime.Now);
+            var sleepAmount = (DateTime.Now - timeAsleep).TotalHours;
+
+            if (Pet.PetInstance.sleeping)
+                UpdateStat(Pet.PetInstance.tired, (float)sleepAmount / 10); // Every hour is 10% sleep
+            else
+                UpdateStat(Pet.PetInstance.tired, -((float)sleepAmount / 10)); // Every hour is -10% sleep
+
+            UpdateStat(Pet.PetInstance.hunger, -((float)sleepAmount / 20)); // Every hour is -5% sleep
+            UpdateStat(Pet.PetInstance.thirst, -((float)sleepAmount / 20)); // Every hour is -5% sleep
+            UpdateStat(Pet.PetInstance.boredom, -((float)sleepAmount / 10)); // Every hour is -10% boredom
+            UpdateStat(Pet.PetInstance.stimulated, (float)sleepAmount / 2.5f); // Every hour is -40% stimulated
+
         }
 
         async void DecayStat(Stat decayingStat, float secondsBetweenDecay, float decayValue)
@@ -60,7 +81,7 @@ namespace AppTest.ViewModels
             {
                 if (Pet.PetInstance.sleeping)
                 {
-                    Pet.PetInstance.tired.StatValue += 0.05f;
+                    Pet.PetInstance.tired.StatValue += 0.0025f;
                 }
                 await Task.Delay(TimeSpan.FromSeconds(5));
             }

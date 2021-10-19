@@ -36,6 +36,8 @@ namespace AppTest.Views
         public void SwapDayNightTime(object sender, EventArgs args)
         {
             Pet.PetInstance.sleeping = !Pet.PetInstance.sleeping;
+            Preferences.Set("Sleeping", Pet.PetInstance.sleeping);
+            Preferences.Set("TimeAsleep", DateTime.Now);
             RefreshContent();
         }
     }

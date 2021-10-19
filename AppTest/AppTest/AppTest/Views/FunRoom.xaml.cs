@@ -47,7 +47,7 @@ namespace AppTest.Views
             {
                 return;
             }
-            UpdateVisuals(Pet.PetInstance.stimulated, -0.01f);
+            UpdateVisuals(Pet.PetInstance.stimulated, -0.1f);
             UpdateVisuals(Pet.PetInstance.boredom, 0.05f);
             int temp = rnd.Next(0, 100);
             if (temp > 75)

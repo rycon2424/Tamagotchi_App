@@ -9,6 +9,7 @@ using System.Diagnostics;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
 
 namespace AppTest.Views
 {
@@ -113,6 +114,7 @@ namespace AppTest.Views
         }
         public Grid Icons(List<GridButton> extraButtons)
         {
+            Pet.PetInstance.sleeping = Preferences.Get("Sleeping", false);
             if (Pet.PetInstance.sleeping)
             {
                 BackgroundColor = Color.MidnightBlue;
