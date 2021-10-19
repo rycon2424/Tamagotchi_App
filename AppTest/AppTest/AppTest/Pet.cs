@@ -28,6 +28,7 @@ namespace AppTest
         public Stat loneliness = new Stat("Lonelyness", 1f, Stat.TypeStat.lonely);
 
         public bool sleeping;
+        public bool inPlayGround;
 
         public bool initialized = false;
         public IDataStore<PetObject> dataStore;
@@ -54,6 +55,7 @@ namespace AppTest
 
         public async void LoadStats()
         {
+            inPlayGround = Preferences.Get("InPlayGround", false);
             PetObject pet = await dataStore.ReadItem();
             if (pet != null)
             {

@@ -11,5 +11,8 @@ namespace AppTest
         Task<T> ReadItem();
         Task<bool> UpdateItem(T item);
         Task<bool> DeleteItem(T item);
+
+        Task<bool> SendToPlayGround(T item);
+        Task<bool> RemoveFromPlayGround();
     }
 }

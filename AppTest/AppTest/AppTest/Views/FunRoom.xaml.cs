@@ -25,7 +25,11 @@ namespace AppTest.Views
         }
         public override void RefreshContent()
         {
-            if (Pet.PetInstance.sleeping == false)
+            if (Pet.PetInstance.sleeping || Pet.PetInstance.inPlayGround)
+            {
+                Content = Icons(null);
+            }
+            else
             {
                 List<GridButton> temp = new List<GridButton>();
 
@@ -34,10 +38,6 @@ namespace AppTest.Views
 
                 temp.Add(new GridButton(petButton, buttonLocation, 2));
                 Content = Icons(temp);
-            }
-            else
-            {
-                Content = Icons(null);
             }
         }
 

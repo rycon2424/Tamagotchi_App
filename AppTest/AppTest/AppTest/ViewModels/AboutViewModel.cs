@@ -25,7 +25,8 @@ namespace AppTest.ViewModels
 
         private void DeletePet()
         {
-            Pet.PetInstance.DeletePet();
+            Preferences.Set("InPlayGround", false);
+            Pet.PetInstance.DeletePet(); 
         }
     }
 }

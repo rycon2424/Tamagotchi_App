@@ -40,5 +40,15 @@ namespace AppTest
             }
             return Task.FromResult(false);
         }
+
+        public Task<bool> RemoveFromPlayGround()
+        {
+            return Task.FromResult(true);
+        }
+
+        public Task<bool> SendToPlayGround(Pet item)
+        {
+            return Task.FromResult(true);
+        }
     }
 }

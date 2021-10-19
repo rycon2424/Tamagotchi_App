@@ -29,6 +29,8 @@ namespace AppTest.Views
 
             ShowStatsModel.OnStateUpdate += RefreshContent;
 
+            AllPages.allPages.Add(this);
+
             this.ToolbarItems.Add(ShopToolBarIcon());
         }
 
@@ -79,6 +81,10 @@ namespace AppTest.Views
             if (Pet.PetInstance.tired.StatValue < 0.2f)
                 sleepy = true;
 
+            if (Pet.PetInstance.inPlayGround)
+            {
+                return "pet_dragon_gone.png";
+            }
             if (Pet.PetInstance.hunger.StatValue < 0.1f || Pet.PetInstance.thirst.StatValue < 0.1f)
             {
                 if (sleeping)
@@ -183,6 +189,18 @@ namespace AppTest.Views
                 HorizontalOptions = LayoutOptions.Center
             };
             return button;
+        }
+    }
+    public static class AllPages
+    {
+        public static List<PetStatsHandler> allPages = new List<PetStatsHandler>();
+
+        public static void UpdateAllPages()
+        {
+            foreach (var page in allPages)
+            {
+                page.RefreshContent();
+            }
         }
     }
 }

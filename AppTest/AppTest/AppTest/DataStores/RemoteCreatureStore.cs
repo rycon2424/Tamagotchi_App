@@ -34,7 +34,7 @@ namespace AppTest
                 }
                 else
                 {
-                    Debug.WriteLine("Failed");
+                    Debug.WriteLine("Failed " + response.StatusCode);
                     return false;
                 }
             }
@@ -98,6 +98,76 @@ namespace AppTest
                 else
                 {
                     Debug.WriteLine("Failed to update pet in database https://tamagotchi.hku.nl/api/Creatures/" + petID + " " + response.StatusCode);
+                    return false;
+                }
+            }
+            catch (HttpRequestException h)
+            {
+                Debug.WriteLine("failed with error code " + h.Message);
+                return false;
+            }
+        }
+
+        public async Task<bool> SendToPlayGround(PetObject item)
+        {
+            int petID = Preferences.Get("MyPetID", 0);
+            if (petID == 0)
+            {
+                return false;
+            }
+
+            string pet = JsonConvert.SerializeObject(item);
+
+            try
+            {
+                var response = await client.PostAsync("https://tamagotchi.hku.nl/api/Playground/" + petID, new StringContent(pet, Encoding.UTF8, "application/json"));
+                if (response.IsSuccessStatusCode)
+                {
+                    var postedPetAsText = await response.Content.ReadAsStringAsync();
+
+                    PetObject postedPet = JsonConvert.DeserializeObject<PetObject>(postedPetAsText);
+
+                    Debug.WriteLine("Put Pet with ID in the playground");
+
+                    Pet.PetInstance.inPlayGround = true;
+                    Preferences.Set("InPlayGround", true);
+
+                    return true;
+                }
+                else
+                {
+                    Debug.WriteLine("Failed " + response.StatusCode);
+                    return false;
+                }
+            }
+            catch (HttpRequestException h)
+            {
+                Debug.WriteLine("failed with error code " + h.Message);
+                return false;
+            }
+        }
+
+        public async Task<bool> RemoveFromPlayGround()
+        {
+            int petID = Preferences.Get("MyPetID", 0);
+            if (petID == 0)
+            {
+                return false;
+            }
+
+            try
+            {
+                var response = await client.DeleteAsync("https://tamagotchi.hku.nl/api/Playground/" + petID);
+                if (response.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine("Deleted Pet");
+                    Pet.PetInstance.inPlayGround = false;
+                    Preferences.Set("InPlayGround", false);
+                    return true;
+                }
+                else
+                {
+                    Debug.WriteLine($"Could not find pet {petID}, Failed " + response.StatusCode);
                     return false;
                 }
             }
