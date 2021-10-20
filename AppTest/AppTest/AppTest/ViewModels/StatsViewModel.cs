@@ -16,6 +16,7 @@ namespace AppTest.ViewModels
         {
             Title = "Stats Overview";
             ShowStatsModel.OnStateUpdate += UpdateValues;
+            UpdateValues();
         }
 
         public void UpdateValues()

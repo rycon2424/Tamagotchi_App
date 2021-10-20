@@ -48,8 +48,7 @@ namespace AppTest.Views
         {
             ToolbarItem item = new ToolbarItem
             {
-                Text = "Example Item",
-                IconImageSource = ImageSource.FromFile("Shop.png"),
+                IconImageSource = ImageSource.FromFile("settings.png"),
                 Order = ToolbarItemOrder.Primary,
                 Priority = 0
             };
