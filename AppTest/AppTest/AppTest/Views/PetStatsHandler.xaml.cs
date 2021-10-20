@@ -31,7 +31,7 @@ namespace AppTest.Views
 
             AllPages.allPages.Add(this);
 
-            this.ToolbarItems.Add(ShopToolBarIcon());
+            this.ToolbarItems.Add(SettingsToolBarItem());
         }
 
         public void UpdateVisuals(Stat stat, float decayValue)
@@ -44,7 +44,7 @@ namespace AppTest.Views
 
         }
 
-        public ToolbarItem ShopToolBarIcon()
+        public ToolbarItem SettingsToolBarItem()
         {
             ToolbarItem item = new ToolbarItem
             {
